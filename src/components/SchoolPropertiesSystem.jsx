@@ -9,6 +9,7 @@ import './school-properties.css';
 
 const fallback='/images/school-properties-fallback.svg';
 const imageUrl=id=>id?apiUrl('/api/media/'+id):fallback;
+const ADMIN_TOKEN_KEY='prism_admin_token';
 async function api(url,options={}) {
   if(url.startsWith('/api/admin'))return adminApi(url,options);
   const response=await fetch(apiUrl(url),{credentials:'include',...options});
@@ -18,14 +19,19 @@ async function api(url,options={}) {
 }
 async function adminApi(url,options={}) {
   let response;
-  try { response=await fetch(apiUrl(url),{credentials:'include',...options}); }
+  const token=sessionStorage.getItem(ADMIN_TOKEN_KEY);
+  try { response=await fetch(apiUrl(url),{...options,headers:{...(options.headers||{}),...(token?{Authorization:`Bearer ${token}`}:{})}}); }
   catch { throw Error('Unable to connect to the server. Please try again.'); }
   if(response.status===429)throw Error('Too many login attempts. Please try again later.');
   if([502,503,504].includes(response.status))throw Error('Unable to connect to the server. Please try again.');
   let data;
   try { data=await response.json(); } catch { throw Error('The login service returned an unexpected response.'); }
   if(!response.ok)throw Object.assign(Error(data.error||'Unable to sign in.'),{status:response.status,fields:data.fields||{}});
-  if((url.endsWith('/login')||url.endsWith('/session'))&&(!data.username||!data.csrf))throw Error('The login service returned an unexpected response.');
+  if(url.endsWith('/login')){
+    if(!data.username||!data.token)throw Error('The login service returned an unexpected response.');
+    sessionStorage.setItem(ADMIN_TOKEN_KEY,data.token);
+  }
+  if(url.endsWith('/session')&&!data.username)throw Error('The login service returned an unexpected response.');
   return data;
 }
 function useData(url,revision=0) {
@@ -109,14 +115,15 @@ export function PropertiesAdmin() {
   const location=useLocation(),navigate=useNavigate(),[session,setSession]=useState(undefined),[error,setError]=useState('');
   useEffect(()=>{let active=true;const check=()=>api('/api/admin/session').then(data=>{if(active)setSession(data);}).catch(e=>{if(active){if(e.status===401)setSession(null);else setError(e.message);}});check();const visible=()=>{if(document.visibilityState==='visible')check();};document.addEventListener('visibilitychange',visible);const timer=setInterval(check,60000);return()=>{active=false;clearInterval(timer);document.removeEventListener('visibilitychange',visible);};},[]);
   if(error&&session===undefined)return <section className="Properties-system wrap py-14"><ErrorMessage>{error}</ErrorMessage><button className="Properties-button" onClick={()=>window.location.reload()}>Retry</button></section>;
-  if(session===undefined)return <section className="wrap py-14" role="status">Checking admin session…</section>;
+  if(session===undefined)return <section className="wrap py-14" role="status">Checking admin access…</section>;
   if(!session&&location.pathname!=='/admin/login')return <Navigate to="/admin/login" replace/>;
   if(!session)return <Login onLogin={value=>{setSession(value);navigate('/admin/school-properties',{replace:true});}}/>;
   if(location.pathname==='/admin'||location.pathname==='/admin/login')return <Navigate to="/admin/school-properties" replace/>;
-  const request=async(url,opts={})=>{try{return await api(url,{...opts,headers:{...opts.headers,'X-CSRF-Token':session.csrf}});}catch(e){if(e.status===401){setSession(null);navigate('/admin/login',{replace:true});}throw e;}};
+  const request=async(url,opts={})=>{try{return await api(url,opts);}catch(e){if(e.status===401){sessionStorage.removeItem(ADMIN_TOKEN_KEY);setSession(null);navigate('/admin/login',{replace:true});}throw e;}};
   const menu=<nav className="wrap sm-admin-nav" aria-label="Listing administration"><Link aria-current={location.pathname==='/admin/school-properties'?'page':undefined} to="/admin/school-properties">School Properties</Link><Link aria-current={location.pathname==='/admin/school-materials'?'page':undefined} to="/admin/school-materials">School Material Listings</Link></nav>;
-  if(location.pathname==='/admin/school-materials')return <>{menu}<MaterialsAdmin request={request} onLogout={async()=>{try{await request('/api/admin/logout',{method:'POST'});setSession(null);navigate('/admin/login',{replace:true});}catch(e){setError(e.message);}}}/></>;
-  return <>{menu}<AdminDashboard request={request} username={session.username} onLogout={async()=>{try{await request('/api/admin/logout',{method:'POST'});setSession(null);navigate('/admin/login',{replace:true});}catch(e){setError(e.message);}}} sessionError={error}/></>;
+  const logout=async()=>{try{await request('/api/admin/logout',{method:'POST'});}catch{}finally{sessionStorage.removeItem(ADMIN_TOKEN_KEY);setSession(null);navigate('/admin/login',{replace:true});}};
+  if(location.pathname==='/admin/school-materials')return <>{menu}<MaterialsAdmin request={request} onLogout={logout}/></>;
+  return <>{menu}<AdminDashboard request={request} username={session.username} onLogout={logout} sessionError={error}/></>;
 }
 function Login({onLogin}) {
   const [show,setShow]=useState(false),[busy,setBusy]=useState(false),[error,setError]=useState('');
