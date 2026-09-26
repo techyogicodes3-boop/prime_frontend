@@ -1,4 +1,5 @@
 import PrismSectionHeading,{SectionSubtitle} from './components/SectionHeading';
+import {apiUrl} from './lib/api.js';
 import IndustryAssociates from './components/IndustryAssociates';
 import {MaterialShop,MaterialDetails,MaterialCart} from './components/SchoolMaterialSystem';
 import {HomeProperties,PropertiesResults,PropertiesDetailsPage,PropertiesSubmission,PropertiesAdmin} from './components/SchoolPropertiesSystem';
@@ -38,7 +39,7 @@ async function sendEnquiry(form,topic){
   const entries=[...new FormData(form).entries()].filter(([,value])=>String(value).trim());
   const values=Object.fromEntries(entries),find=(...keys)=>keys.map(key=>values[key]).find(Boolean)||'';
   const message=find('message','Message','Brief requirement')||entries.filter(([key])=>!['name','Name','email','Email address','phone','Phone number'].includes(key)).map(([key,value])=>`${key}: ${value}`).join('\n');
-  const response=await fetch('/api/enquiries',{method:'POST',credentials:'same-origin',headers:{'Content-Type':'application/json'},body:JSON.stringify({name:find('name','Name','Contact Person'),email:find('email','Email','Email address'),phone:find('phone','Phone','Phone number','Mobile Number'),topic,message})});
+  const response=await fetch(apiUrl('/api/enquiries'),{method:'POST',credentials:'include',headers:{'Content-Type':'application/json'},body:JSON.stringify({name:find('name','Name','Contact Person'),email:find('email','Email','Email address'),phone:find('phone','Phone','Phone number','Mobile Number'),topic,message})});
   const result=await response.json().catch(()=>({}));
   if(!response.ok)throw Error(result.error||'Unable to send your enquiry. Please try again.');
   return result;

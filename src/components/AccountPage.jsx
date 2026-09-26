@@ -1,10 +1,11 @@
 import {useEffect,useState} from 'react';
 import {LogIn,LogOut,UserPlus,UserRound} from 'lucide-react';
+import {apiUrl} from '../lib/api.js';
 
 const empty={name:'',email:'',password:''};
 
 async function api(path,options={}){
-  const response=await fetch(path,{credentials:'same-origin',...options,headers:{'Content-Type':'application/json',...(options.headers||{})}});
+  const response=await fetch(apiUrl(path),{credentials:'include',...options,headers:{'Content-Type':'application/json',...(options.headers||{})}});
   const body=await response.json().catch(()=>({}));
   if(!response.ok)throw Object.assign(Error(body.error||'Unable to complete the request.'),{fields:body.fields||{}});
   return body;

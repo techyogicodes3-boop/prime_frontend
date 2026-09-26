@@ -3,9 +3,10 @@ import React,{useEffect,useRef,useState} from 'react';
 import {Link,useParams} from 'react-router-dom';
 import {Armchair,Monitor,MonitorCog,FlaskConical,Library,PackageOpen,Shirt,Bus,Boxes,ShoppingCart,ArrowRight,MapPin} from 'lucide-react';
 import {materialOptions,materialDefaults,categoryName,canOrder,validateMaterial} from '../contracts/material-schema.js';
+import {apiUrl} from '../lib/api.js';
 import './school-materials.css';
 export async function materialApi(url,options={}){
-  const response=await fetch(url,{credentials:'same-origin',...options});
+  const response=await fetch(apiUrl(url),{credentials:'include',...options});
   const data=await response.json().catch(()=>({error:'Unable to read the server response.'}));
   if(!response.ok)throw Object.assign(Error(data.error||'Request failed.'),{status:response.status,fields:data.fields||{}});
   return data;
@@ -23,7 +24,7 @@ function useMaterials(url,revision=0){
   return state;
 }
 const icons={'Classroom Furniture':Armchair,'Smart Classroom':Monitor,Computers:MonitorCog,'Lab Equipment':FlaskConical,Books:Library,Sports:PackageOpen,Uniforms:Shirt,'School Bus / Transport':Bus,Stationery:Boxes,Playground:PackageOpen};
-const imageUrl=id=>'/api/material-images/'+id;
+const imageUrl=id=>apiUrl('/api/material-images/'+id);
 const priceLabel=item=>item.priceOnRequest?(item.transaction==='For Lease'?' on request':'Price on request'):'₹'+Number(item.price).toLocaleString('en-IN');
 function Notice({error,loading}){return error?<p className="sm-error" role="alert">{error} <button onClick={()=>window.location.reload()}>Retry</button></p>:loading?<p role="status">Loading materials…</p>:null;}
 function MaterialImage({item}){const Icon=icons[item.category]||Boxes;return item.images?.[0]?<img src={imageUrl(item.images[0])} alt={item.title} loading="lazy" width="720" height="440"/>:<div className="sm-fallback"><Icon size={66} strokeWidth={1.5}/><span>{categoryName(item)}</span></div>;}

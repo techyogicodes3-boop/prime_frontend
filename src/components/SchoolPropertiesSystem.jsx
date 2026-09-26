@@ -4,20 +4,21 @@ import React,{useEffect,useState} from 'react';
 import {Link,Navigate,useLocation,useNavigate,useParams,useSearchParams} from 'react-router-dom';
 import {MapPin,Ruler,ArrowRight,Plus,Search,Building2,LogOut,Eye,EyeOff,Upload,Trash2} from 'lucide-react';
 import {defaults,options,validate,emailValid,phoneValid} from '../contracts/properties-schema.js';
+import {apiUrl} from '../lib/api.js';
 import './school-properties.css';
 
 const fallback='/images/school-properties-fallback.svg';
-const imageUrl=id=>id?'/api/media/'+id:fallback;
+const imageUrl=id=>id?apiUrl('/api/media/'+id):fallback;
 async function api(url,options={}) {
   if(url.startsWith('/api/admin'))return adminApi(url,options);
-  const response=await fetch(url,{credentials:'same-origin',...options});
+  const response=await fetch(apiUrl(url),{credentials:'include',...options});
   const data=await response.json().catch(()=>({error:'The server returned an invalid response.'}));
   if (!response.ok) throw Object.assign(Error(data.error || 'Request failed.'),{status:response.status,fields:data.fields || {}});
   return data;
 }
 async function adminApi(url,options={}) {
   let response;
-  try { response=await fetch(url,{credentials:'same-origin',...options}); }
+  try { response=await fetch(apiUrl(url),{credentials:'include',...options}); }
   catch { throw Error('Unable to connect to the server. Please try again.'); }
   if(response.status===429)throw Error('Too many login attempts. Please try again later.');
   if([502,503,504].includes(response.status))throw Error('Unable to connect to the server. Please try again.');
