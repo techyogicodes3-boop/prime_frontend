@@ -1,19 +1,54 @@
-import {defineConfig} from 'vite';
+import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
-import {fileURLToPath} from 'node:url';
+import { fileURLToPath } from 'node:url';
 
-const appRoot=fileURLToPath(new URL('.',import.meta.url));
+const appRoot = fileURLToPath(new URL('.', import.meta.url));
 
 export default defineConfig({
-  root:appRoot,
-  plugins:[react()],
-  server:{host:'127.0.0.1',proxy:{'/api':{target:'http://127.0.0.1:3001',configure(proxy){proxy.on('error',(_error,_request,response)=>{if(!response.headersSent&&response.writeHead){response.writeHead(503,{'Content-Type':'application/json'});response.end(JSON.stringify({error:'Unable to connect to the server. Please try again.'}));}});}}}},
-  build:{rolldownOptions:{output:{codeSplitting:{groups:[{
-    name(id){
-      if(!id.includes('node_modules'))return null;
-      if(id.includes('react-dom')||id.includes('scheduler'))return 'react-dom';
-      if(id.includes('lucide-react'))return 'icons';
-      return 'vendor';
+  root: appRoot,
+  plugins: [react()],
+
+  server: {
+    host: '0.0.0.0',
+    allowedHosts: ['prime-frontend-16cn.onrender.com'],
+    proxy: {
+      '/api': {
+        target: 'http://127.0.0.1:3001',
+        configure(proxy) {
+          proxy.on('error', (_error, _request, response) => {
+            if (!response.headersSent && response.writeHead) {
+              response.writeHead(503, {
+                'Content-Type': 'application/json',
+              });
+              response.end(
+                JSON.stringify({
+                  error: 'Unable to connect to the server. Please try again.',
+                })
+              );
+            }
+          });
+        },
+      },
     },
-  }]}}}},
+  },
+
+  build: {
+    rolldownOptions: {
+      output: {
+        codeSplitting: {
+          groups: [
+            {
+              name(id) {
+                if (!id.includes('node_modules')) return null;
+                if (id.includes('react-dom') || id.includes('scheduler'))
+                  return 'react-dom';
+                if (id.includes('lucide-react')) return 'icons';
+                return 'vendor';
+              },
+            },
+          ],
+        },
+      },
+    },
+  },
 });
