@@ -22,7 +22,8 @@
 }
 
 header>.wrap{height:clamp(5rem,5.9vw,5.5rem)!important}
-header>.wrap>a img{height:clamp(4.55rem,5.5vw,5.35rem);width:auto;max-width:clamp(12.5rem,16vw,15rem);object-fit:contain}
+header>.wrap>a[aria-label="Prism Edu home"]{width:clamp(6.5rem,7.8vw,7.25rem);height:100%;overflow:hidden;justify-content:center}
+header>.wrap>a img{width:clamp(8.4rem,9.8vw,9.4rem)!important;height:auto!important;max-width:none!important;flex:none;object-fit:contain}
 header>.wrap>nav{gap:clamp(.4rem,.68vw,.8rem)}
 header .nav-link{font-size:clamp(1rem,1.04vw,1.0625rem)!important;font-weight:700!important;padding-inline:clamp(.18rem,.25vw,.3rem)!important}
 .nav-link:after{height:3px!important}
@@ -30,7 +31,7 @@ header .nav-link{font-size:clamp(1rem,1.04vw,1.0625rem)!important;font-weight:70
 .school-bus{width:auto!important;height:clamp(32px,2.7vw,40px)!important;color:#10263f!important;fill:#f4bd32;stroke-width:1.6;bottom:1px!important;max-width:none}
 #mobile-navigation{max-height:calc(100vh - 100px);overflow-y:auto}
 html,body,#root{max-width:100%;overflow-x:hidden}
-@media(max-width:1279px){header>.wrap{height:5rem!important}header>.wrap>a img{height:clamp(3.8rem,11vw,4.35rem);max-width:12rem}.bus-road{height:4px!important}.school-bus{height:clamp(24px,6vw,30px)!important;width:auto!important}}
+@media(max-width:1279px){header>.wrap{height:5rem!important}header>.wrap>a[aria-label="Prism Edu home"]{width:5.8rem}header>.wrap>a img{width:7.8rem!important}.bus-road{height:4px!important}.school-bus{height:clamp(24px,6vw,30px)!important;width:auto!important}}
 @media(max-width:390px){.wrap{padding-left:1rem;padding-right:1rem}.service-showcase-card{min-height:0}.section-heading{font-size:1.85rem}.school-bus{bottom:0!important}}
 @media(prefers-reduced-motion:reduce){.school-bus{animation:none!important;left:1rem!important}.ecosystem-card,.service-showcase-card,.gallery-card img{transition:none!important}}
 
