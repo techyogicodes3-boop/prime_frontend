@@ -1,12 +1,20 @@
 .prism-clients-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));grid-auto-rows:1fr;gap:16px;margin-top:36px}
+.prism-clients-marquee{width:100%;overflow:hidden;margin-top:36px;padding:4px 0 12px}
+.prism-clients-track{display:flex;width:max-content;animation:clientMarquee 42s linear infinite;will-change:transform}
+.prism-clients-group{display:flex;gap:.75rem;padding-right:.75rem}
+.prism-clients-marquee .prism-client-card{width:calc((min(100vw - 2.5rem,1176px) - 1.5rem)/3)}
+.prism-clients-marquee .prism-client-image{height:104px;padding:5px}
+.prism-clients-marquee .prism-client-card figcaption{min-height:48px;padding:6px 0 2px;font-size:.68rem;line-height:1.3}
+.prism-clients-marquee:hover .prism-clients-track,.prism-clients-marquee:focus-within .prism-clients-track{animation-play-state:paused}
+@keyframes clientMarquee{to{transform:translateX(-50%)}}
 .prism-client-card{min-width:0;margin:0;display:flex;flex-direction:column;align-items:center;background:#fff;border:1px solid #e2e8f0;border-radius:18px;padding:12px;box-shadow:0 4px 16px #10263f0a;transition:transform .2s ease,box-shadow .2s ease}
 .prism-client-image{height:200px;width:100%;display:grid;place-items:center;padding:8px}
 .prism-client-image img{display:block;width:100%;height:100%;min-height:0;object-fit:contain;transition:transform .2s ease}
 .prism-client-card figcaption{width:100%;min-height:72px;display:grid;place-items:center;padding:12px 0 4px;text-align:center;font-size:14px;font-weight:600;line-height:1.5;color:#10263f;overflow-wrap:anywhere}
 .prism-clients button:focus-visible{outline:3px solid #b8790c;outline-offset:4px}
 @media(hover:hover){.prism-client-card:hover{transform:translateY(-4px);box-shadow:0 12px 28px #10263f18}.prism-client-card:hover img{transform:scale(1.03)}}
-@media(min-width:768px){.prism-clients-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:24px}.prism-client-image{height:240px}}
+@media(min-width:768px){.prism-clients-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:24px}.prism-client-image{height:240px}.prism-clients-group{gap:1.25rem;padding-right:1.25rem}.prism-clients-marquee .prism-client-card{width:calc((min(100vw - 4rem,1176px) - 6.25rem)/6)}.prism-clients-marquee .prism-client-image{height:160px;padding:8px}.prism-clients-marquee .prism-client-card figcaption{min-height:58px;padding:8px 0 3px;font-size:.78rem}}
 @media(min-width:1024px){.prism-clients-grid{grid-template-columns:repeat(4,minmax(0,1fr))}}
 @media(min-width:1280px){.prism-clients-grid{grid-template-columns:repeat(5,minmax(0,1fr))}}
-@media(prefers-reduced-motion:reduce){.prism-client-card,.prism-client-image img{transition:none}.prism-client-card:hover,.prism-client-card:hover img{transform:none}}
+@media(prefers-reduced-motion:reduce){.prism-clients-track{animation:none}.prism-client-card,.prism-client-image img{transition:none}.prism-client-card:hover,.prism-client-card:hover img{transform:none}}
 .prism-clients-page{background-image:linear-gradient(rgba(237,245,248,.94),rgba(237,245,248,.97)),url('/images/prism-official/school-community.jpg');background-size:cover;background-position:center;background-repeat:no-repeat}

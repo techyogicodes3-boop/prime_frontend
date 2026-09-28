@@ -15,7 +15,7 @@ import GlobalFooter from'./components/GlobalFooter';
 import AccountPage from'./components/AccountPage';
 import MotionController from'./components/MotionController';
 import './components/page-brand.css';
-const nav=[['Home','/'],['About Us','/about'],['Our Services','/services'],['School Properties','/school-properties'],['School Mart','/school-materials'],['Our Clients','/our-clients'],['Events/Awards','/events-awards'],['Helpline','/resources'],['Contact','/contact']];
+const nav=[['Home','/'],['About Us','/about'],['Our Services','/services'],['School Properties','/school-properties'],['School E-Mart','/school-materials'],['Our Clients','/our-clients'],['Upcoming Events','/events-awards'],['Helpline','/resources'],['Contact','/contact']];
 const PRISM_LOGO_URL='/images/prism-official/prism-logo.jpg';
 const PRISM_CALENDLY_URL=''; // Add the official Prism Edu Calendly appointment URL when available.
 const PRISM_PHONE='+91 95189 63309';
@@ -50,7 +50,7 @@ function Cards({items,icons=false}){return <div className="grid gap-5 md:grid-co
 const PRISM_WHATSAPP_URL='https://wa.me/919518963309';
 const locationFactors=[
   [MapPin,'Student Accessibility','Safe and convenient access for nearby students.'],
-  [Users,'Teacher & Staff Access','A well-connected location helps attract and retain staff.'],
+  [Users,'Team & Staff Access','A well-connected location helps attract and retain staff.'],
   [Bus,'Public Transport','Easy access to roads and public transportation.'],
   [ShieldCheck,'Safe Surroundings','A secure and suitable learning environment.'],
   [TrendingUp,'Growth Potential','Adequate space for facilities and future expansion.'],
@@ -109,7 +109,7 @@ function ResourcesPage(){const[query,setQuery]=useState(''),[tab,setTab]=useStat
 function ResourceBlogPage(){const{slug}=useParams(),blog=resourceContent.find(x=>x.type==='Blogs'&&x.slug===slug&&x.status==='published');if(!blog)return <section className="wrap py-20"><div className="card mx-auto max-w-2xl text-center"><BookOpen className="mx-auto text-gold" size={42}/><h1 className="mt-4 text-3xl">Resource not found</h1><p className="mt-3">This blog may be unpublished, archived or unavailable.</p><Link className="btn mt-6" to="/resources">Back to Resources</Link></div></section>;return <article className="wrap max-w-4xl py-16"><span className="eyebrow">{blog.category}</span><PrismSectionHeading as="h1" className="text-4xl font-bold md:text-5xl">{blog.title}</PrismSectionHeading><SectionSubtitle className="mt-4 text-sm">{blog.author} · {blog.date}</SectionSubtitle>{blog.image&&<img src={blog.image} alt="" className="mt-8 aspect-video w-full rounded-2xl object-cover"/>}<div className="prose mt-10 max-w-none whitespace-pre-wrap leading-8">{blog.content}</div><Link className="btn2 mt-10" to="/resources">Back to Resources</Link></article>}
 
 const procurementChallenges=[
-  [School,'Challenges Faced by Schools',['Difficulty identifying reliable and verified Industry Associates','Time-consuming quotation and Industry Associates-comparison processes','Uncertainty about product quality, pricing, and after-sales support','Delays in receiving essential academic, laboratory, sports, safety, transport, and infrastructure materials','Limited access to suitable new, pre-owned, rental, lease, or shared-use options','Difficulty communicating urgent or bulk material requirements to multiple suppliers']],
+  [School,'Challenges Faced by Schools',['Difficulty identifying reliable and verified Industry Associates','Time-consuming quotation and Industry Associates-comparison processes','Uncertainty about product quality, pricing, and after-sales support','Delays in receiving essential academic, laboratory, sports, safety, transport, and infrastructure materials','Limited access to suitable new, pre-owned, lease, or shared-use options','Difficulty communicating urgent or bulk material requirements to multiple suppliers']],
   [PackageOpen,'Challenges Faced by Industry Associates',['Difficulty reaching the right schools and decision-makers','Limited visibility beyond local markets','High marketing and customer-acquisition effort','Lack of clear information about current school requirements','Difficulty presenting products and services to multiple institutions','Delays in establishing trusted professional connections with schools']],
   [Handshake,'The Prism Edu Solution',['Connects schools with relevant school-material Industry Associates','Supports smooth communication between demand and supply sides','Helps schools share specific, bulk, and urgent requirements','Provides visibility for available, required, sale, resale, lease, and shared materials','Supports access to multiple product categories through one coordinated platform']],
 ];
@@ -122,7 +122,7 @@ function MaterialsPage({onAdd,cartCount}){return <>
 </>}
 
 
-function SiteLoader({leaving}){return <div className={'site-loader '+(leaving?'is-leaving':'')} role="status" aria-live="polite" aria-label="Loading Prism Edu Consultancy"><div className="loader-content"><div className="loader-prism"><span className="loader-point" aria-hidden="true"/><svg className="loader-triangle" viewBox="0 0 240 220" fill="none" aria-hidden="true"><path pathLength="1" d="M120 14L225 200"/><path pathLength="1" d="M225 200H15"/><path pathLength="1" d="M15 200L120 14"/></svg><span className="loader-spectrum" aria-hidden="true"/><img className="loader-logo" src={PRISM_LOGO_URL} alt="Prism" fetchPriority="high"/></div><p className="loader-title">PRISM</p><p className="loader-subtitle">Edu Consultancy</p><p className="loader-tagline">Supporting Education Institutions from Vision to Growth.</p><div className="loader-progress" aria-hidden="true"><span/></div></div></div>}
+function SiteLoader({leaving}){return <div className={'site-loader '+(leaving?'is-leaving':'')} role="status" aria-live="polite" aria-label="Loading Prism Edu Consultancy"><div className="loader-content"><div className="loader-prism"><span className="loader-point" aria-hidden="true"/><svg className="loader-triangle" viewBox="0 0 240 220" fill="none" aria-hidden="true"><path pathLength="1" d="M120 14L225 200"/><path pathLength="1" d="M225 200H15"/><path pathLength="1" d="M15 200L120 14"/></svg><span className="loader-spectrum" aria-hidden="true"/></div><img className="loader-logo" src={PRISM_LOGO_URL} alt="Prism Edu Consultancy" fetchPriority="high"/><p className="loader-tagline">Supporting Education Institutions from Vision to Growth.</p><div className="loader-progress" aria-hidden="true"><span/></div></div></div>}
 function App() {
   const [showLoader,setShowLoader]=useState(true),[loaderLeaving,setLoaderLeaving]=useState(false);
   const [cart,setCart]=useState(()=>{try{return JSON.parse(localStorage.getItem('prism-material-cart')||'[]')}catch{return[]}});
@@ -258,7 +258,7 @@ function App() {
           path="/school-materials/list"
           element={
             <section className="wrap py-16">
-              <Head label="SCHOOL MATERIAL MARKETPLACE" title="Lease / List School Materials" text="List school materials available to sell, lease or offer to another school." />
+              <Head label="SCHOOL E-MART" title="Lease / List School Materials" text="List school materials available to sell, lease or offer to another school." />
               <Form title="Share your material details" fields={["Material category", "Item / equipment name", "Quantity or specification", "Sale / Lease preference", "Condition", "Message"]} />
             </section>
           }
@@ -268,7 +268,7 @@ function App() {
           path="/school-materials/order"
           element={
             <section className="wrap py-16">
-              <Head label="SCHOOL MATERIAL MARKETPLACE" title="Order School Materials" text="Submit a purchase, lease, sourcing or bulk quotation requirement." />
+              <Head label="SCHOOL E-MART" title="Order School Materials" text="Submit a purchase, lease, sourcing or bulk quotation requirement." />
               <Form title="Tell us what your school needs" fields={["Material category", "Required item", "Quantity or specification", "Buy / Lease preference", "Required by", "Message"]} />
             </section>
           }

@@ -2,7 +2,7 @@ export const options = {
   type: ['Properties Available', 'Properties Required'],
   propertyType: ['Open Properties', 'School Building', 'Existing School Campus', 'Commercial/Educational Property'],
   transaction: ['For Sale', 'For Lease', 'Sale / Lease', 'Any Suitable Option'],
-  dealStatus: ['Open', 'Sold', 'Rented', 'Leased', 'Requirement Fulfilled', 'Closed'],
+  dealStatus: ['Open', 'Sold', 'Leased', 'Requirement Fulfilled', 'Closed'],
   adminStatus: ['Active', 'Inactive', 'Archived'],
   approvalStatus: ['Pending', 'Approved', 'Rejected'],
   publicationStatus: ['Draft', 'Published', 'Unpublished'],
@@ -15,7 +15,7 @@ export function validate(input, {publicSubmission = false} = {}) {
   const errors = {};
   for (const key of ['title','location','city','state','description']) if (!String(input[key] || '').trim()) errors[key] = 'This field is required.';
   if (!(Number(input.area) > 0) || !Number.isFinite(Number(input.area))) errors.area = 'Enter an area greater than zero.';
-  for (const [key, values] of Object.entries(options)) if (!values.includes(input[key])) errors[key] = 'Select a valid option.';
+  for (const [key, values] of Object.entries(options)) if (!values.includes(input[key]) && !(key === 'dealStatus' && input[key] === 'Rented')) errors[key] = 'Select a valid option.';
   for (const key of ['title','propertyType','transaction','location','city','district','state','pinCode','areaUnit','terms','summary','description','suitability','connectivity','landmarks','facilities','ownerName','contactName','phone','whatsapp','email','listingDate','expiryDate','internalNotes','video']) if (String(input[key] || '').length > (['description','internalNotes'].includes(key) ? 10000 : 2000)) errors[key] = 'This value is too long.';
   if (input.email && !emailValid(input.email)) errors.email = 'Enter a valid email address.';
   for (const key of ['phone','whatsapp']) if (input[key] && !phoneValid(input[key])) errors[key] = 'Enter a valid phone number.';

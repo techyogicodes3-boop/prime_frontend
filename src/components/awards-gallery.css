@@ -1,4 +1,14 @@
 .recognition-grid{display:grid;grid-template-columns:1fr;gap:24px;margin-top:40px}
+.recognition-marquee{width:100%;overflow:hidden;margin-top:40px;padding:4px 0 14px}
+.recognition-track{display:flex;width:max-content;animation:recognitionMarquee 46s linear infinite;will-change:transform}
+.recognition-group{display:flex;gap:.75rem;padding-right:.75rem}
+.recognition-marquee .recognition-card{width:calc((min(100vw - 2.5rem,1176px) - 1.5rem)/3)}
+.recognition-marquee .recognition-image{height:150px;padding:8px}
+.recognition-marquee .recognition-copy{padding:10px}
+.recognition-marquee .recognition-copy h3{font-size:.7rem;line-height:1.35}
+.recognition-marquee .recognition-copy dl,.recognition-marquee .recognition-copy p{display:none}
+.recognition-marquee:hover .recognition-track,.recognition-marquee:focus-within .recognition-track{animation-play-state:paused}
+@keyframes recognitionMarquee{to{transform:translateX(-50%)}}
 .recognition-card{min-width:0;background:#fff;border:1px solid #e8ddc5;border-radius:20px;box-shadow:0 8px 24px #10263f12;transition:opacity .45s ease,transform .3s ease,box-shadow .3s ease}
 .recognition-card.recognition-pending{opacity:0;transform:translateY(16px)}
 .recognition-image{position:relative;display:block;width:100%;height:320px;padding:20px;background:linear-gradient(135deg,#fffaf0,#edf3f7);border-radius:20px 20px 0 0}
@@ -6,7 +16,7 @@
 .recognition-image svg{position:absolute;right:12px;bottom:12px;color:#8b5e1d}
 .recognition-copy{padding:24px}.recognition-copy h3{color:#10263f;font-size:1.12rem;font-weight:700;line-height:1.5}.recognition-copy dl{margin-top:16px}.recognition-copy dl div{margin-top:10px}.recognition-copy dt{font-size:.72rem;text-transform:uppercase;letter-spacing:.04em;color:#8b5e1d;font-weight:700}.recognition-copy dd,.recognition-copy p{font-size:.9rem;line-height:1.65;color:#475569;overflow-wrap:anywhere}.recognition-copy p{margin-top:16px}
 .recognition-image:focus-visible{outline:3px solid #b8790c;outline-offset:3px}
-@media(min-width:768px){.recognition-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(min-width:768px){.recognition-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.recognition-group{gap:1.25rem;padding-right:1.25rem}.recognition-marquee .recognition-card{width:calc((min(100vw - 4rem,1176px) - 6.25rem)/6)}.recognition-marquee .recognition-image{height:190px;padding:12px}.recognition-marquee .recognition-copy{padding:13px}.recognition-marquee .recognition-copy h3{font-size:.8rem}}
 @media(min-width:1024px){.recognition-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
 @media(hover:hover){.recognition-card:hover{transform:translateY(-4px);box-shadow:0 18px 36px #10263f24}.recognition-image:hover img{transform:scale(1.025)}}
-@media(prefers-reduced-motion:reduce){.recognition-card,.recognition-image img{transition:none}.recognition-card.recognition-pending{opacity:1;transform:none}.recognition-card:hover,.recognition-image:hover img{transform:none}}
+@media(prefers-reduced-motion:reduce){.recognition-track{animation:none}.recognition-card,.recognition-image img{transition:none}.recognition-card.recognition-pending{opacity:1;transform:none}.recognition-card:hover,.recognition-image:hover img{transform:none}}

@@ -21,8 +21,8 @@
   .cta-outline{@apply inline-flex min-h-12 items-center justify-center rounded-lg border border-white/25 px-5 py-3 text-sm font-bold text-white transition hover:bg-white/10}
 }
 
-header>.wrap{height:clamp(4.75rem,5.6vw,5.25rem)!important}
-header>.wrap>a img{height:clamp(4.25rem,5.2vw,5rem);width:auto;max-width:clamp(12rem,15.5vw,14.5rem);object-fit:contain}
+header>.wrap{height:clamp(5rem,5.9vw,5.5rem)!important}
+header>.wrap>a img{height:clamp(4.55rem,5.5vw,5.35rem);width:auto;max-width:clamp(12.5rem,16vw,15rem);object-fit:contain}
 header>.wrap>nav{gap:clamp(.4rem,.68vw,.8rem)}
 header .nav-link{font-size:clamp(1rem,1.04vw,1.0625rem)!important;font-weight:700!important;padding-inline:clamp(.18rem,.25vw,.3rem)!important}
 .nav-link:after{height:3px!important}
@@ -30,7 +30,7 @@ header .nav-link{font-size:clamp(1rem,1.04vw,1.0625rem)!important;font-weight:70
 .school-bus{width:auto!important;height:clamp(32px,2.7vw,40px)!important;color:#10263f!important;fill:#f4bd32;stroke-width:1.6;bottom:1px!important;max-width:none}
 #mobile-navigation{max-height:calc(100vh - 100px);overflow-y:auto}
 html,body,#root{max-width:100%;overflow-x:hidden}
-@media(max-width:1279px){header>.wrap{height:4.75rem!important}header>.wrap>a img{height:clamp(3.5rem,10vw,4rem);max-width:11.5rem}.bus-road{height:4px!important}.school-bus{height:clamp(24px,6vw,30px)!important;width:auto!important}}
+@media(max-width:1279px){header>.wrap{height:5rem!important}header>.wrap>a img{height:clamp(3.8rem,11vw,4.35rem);max-width:12rem}.bus-road{height:4px!important}.school-bus{height:clamp(24px,6vw,30px)!important;width:auto!important}}
 @media(max-width:390px){.wrap{padding-left:1rem;padding-right:1rem}.service-showcase-card{min-height:0}.section-heading{font-size:1.85rem}.school-bus{bottom:0!important}}
 @media(prefers-reduced-motion:reduce){.school-bus{animation:none!important;left:1rem!important}.ecosystem-card,.service-showcase-card,.gallery-card img{transition:none!important}}
 
@@ -430,3 +430,10 @@ section:has(.md\:grid-cols-5) .md\:grid-cols-5:before{content:"PRISM EDU\A Your 
 /* Account access and route motion */
 .gsap-reveal{will-change:transform,opacity}.account-page{display:grid;min-height:70vh;place-items:center;padding:clamp(3rem,8vw,6rem) 1rem;background:radial-gradient(circle at 10% 10%,rgba(238,182,64,.16),transparent 28%),linear-gradient(135deg,#eef5f8,#fff 55%,#f8f1ff)}.account-card{width:min(100%,520px);border:1px solid #dfe7ee;border-radius:2rem;background:#fff;padding:clamp(1.5rem,5vw,2.5rem);box-shadow:0 24px 70px rgba(16,38,63,.12)}.account-card h1{font-size:clamp(2rem,6vw,3rem);font-weight:800}.account-icon{display:grid;width:58px;height:58px;margin-bottom:1.25rem;place-items:center;border-radius:1rem;background:#10263f;color:#eeb640}.account-tabs{display:grid;grid-template-columns:1fr 1fr;gap:.35rem;margin-top:1.75rem;border-radius:.9rem;background:#eef3f7;padding:.3rem}.account-tabs button{min-height:44px;border-radius:.7rem;color:#526477;font-weight:800}.account-tabs button.is-active{background:#fff;color:#10263f;box-shadow:0 5px 16px rgba(16,38,63,.09)}.account-card label{display:block;color:#10263f;font-size:.82rem;font-weight:800}.account-card label small{display:block;margin-top:.35rem;color:#b42318}.account-error{margin-top:1rem;border:1px solid #fecaca;border-radius:.75rem;background:#fef2f2;padding:.75rem;color:#991b1b;font-size:.82rem}
 @media(prefers-reduced-motion:reduce){.gsap-reveal{will-change:auto}}
+
+/* Final alignment and contrast refinements for service and values sections. */
+.service-cards-layout{width:100%;max-width:1240px;margin:2rem auto 0}
+#school-services .service-section-intro,#school-properties-support .service-section-intro,#industry-associates-services .service-section-intro,#licensing-legal .service-section-intro,#digital-services .service-section-intro{color:rgba(255,255,255,.88)!important}
+#about-values .value-card:nth-child(3n+1){background:linear-gradient(145deg,#e9f4f8,#dcecf3);border-color:#c5dce6}
+#about-values .value-card:nth-child(3n+2){background:linear-gradient(145deg,#f1edf8,#e6dff2);border-color:#d8cce9}
+#about-values .value-card:nth-child(3n){background:linear-gradient(145deg,#fff4da,#f9e8bd);border-color:#ecd69d}

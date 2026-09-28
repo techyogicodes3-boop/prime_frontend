@@ -31,19 +31,18 @@ const clients = [
 
 export default function ClientsSection({standalone = false}) {
   const [expanded, setExpanded] = useState(false);
+  const clientCard=([file,name],duplicate=false)=><figure className="prism-client-card" key={(duplicate?'duplicate-':'')+file}>
+    <div className="prism-client-image"><img src={file} alt={duplicate?'':`${name} – Prism Edu Consultancy Client`} loading="lazy" decoding="async"/></div>
+    <figcaption>{name}</figcaption>
+  </figure>;
   return <section id={standalone ? 'our-clients' : 'about-clients'} className={`about-anchor-section prism-clients bg-[#edf5f8] py-16 md:py-24${standalone ? ' prism-clients-page' : ''}`} aria-labelledby="clients-heading">
     <div className="wrap">
       <div className="mx-auto max-w-4xl text-center">
         {standalone&&<p className="section-kicker">OUR CLIENTS</p>}
         {standalone ? <><PrismSectionHeading as="h1" id="clients-heading" className="section-heading">Our Clients</PrismSectionHeading><SectionSubtitle className="mt-4 text-xl font-semibold text-[#10263f] md:text-2xl">Trusted by Educational Institutions</SectionSubtitle><p className="mx-auto mt-5 max-w-3xl leading-8 text-slate-600">Prism Edu Consultancy builds trusted relationships with schools and educational institutions through collaboration, practical guidance and a shared commitment to educational growth.</p></> : <PrismSectionHeading id="clients-heading" className="section-heading">OUR CLIENTS</PrismSectionHeading>}
       </div>
-      <div id="prism-client-grid" className="prism-clients-grid">
-        {clients.slice(0, standalone || expanded ? clients.length : 10).map(([file, name]) => <figure className="prism-client-card" key={file}>
-          <div className="prism-client-image"><img src={file} alt={`${name} – Prism Edu Consultancy Client`} loading="lazy" decoding="async"/></div>
-          <figcaption>{name}</figcaption>
-        </figure>)}
-      </div>
-      {!standalone && clients.length > 10 && <div className="mt-8 text-center"><button type="button" className="btn" aria-expanded={expanded} aria-controls="prism-client-grid" onClick={() => setExpanded(value => !value)}>{expanded ? 'Show Fewer Clients' : 'View All Clients'}</button></div>}
+      {standalone||expanded?<div id="prism-client-grid" className="prism-clients-grid">{clients.map(item=>clientCard(item))}</div>:<div id="prism-client-grid" className="prism-clients-marquee"><div className="prism-clients-track"><div className="prism-clients-group">{clients.map(item=>clientCard(item))}</div><div className="prism-clients-group" aria-hidden="true">{clients.map(item=>clientCard(item,true))}</div></div></div>}
+      {!standalone && <div className="mt-8 text-center"><button type="button" className="btn" aria-expanded={expanded} aria-controls="prism-client-grid" onClick={() => setExpanded(value => !value)}>{expanded ? 'Show Client Slider' : 'View All Clients'}</button></div>}
     </div>
   </section>;
 }
