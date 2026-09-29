@@ -1,6 +1,7 @@
 .mart-associates{background:linear-gradient(135deg,#f1f6fa,#f7f9f0 55%,#fff9ed);color:#10263f;scroll-margin-top:110px}
-.mart-associates .associate-grid{display:grid;grid-template-columns:minmax(0,1fr);gap:1rem}
-.mart-associates .associate-card{min-width:0;padding:1.35rem;border:1px solid #dce5ea;border-radius:1.15rem;background:#ffffffeb;box-shadow:0 5px 18px #10263f08;opacity:1;transform:none;transition:opacity .5s ease,transform .5s ease,box-shadow .25s ease,border-color .25s ease}
+.mart-associates .prism-heading-group{margin-bottom:1.5rem}.mart-associates .prism-section-heading,.mart-associates .prism-section-subtitle{padding:0!important;margin-bottom:.75rem!important}.mart-associates .associate-grid{display:grid;grid-template-columns:minmax(0,1fr);gap:1rem}
+.mart-associates .associate-card{min-width:0;padding:1.35rem;border:1px solid #d8e2e7;border-radius:1.15rem;background:linear-gradient(145deg,#edf7f8,#f8f2ff);box-shadow:0 5px 18px #10263f08;opacity:1;transform:none;transition:opacity .5s ease,transform .5s ease,box-shadow .25s ease,border-color .25s ease}
+.mart-associates .associate-card:nth-child(3n+2){background:linear-gradient(145deg,#fff6df,#f7fbf0)}.mart-associates .associate-card:nth-child(3n){background:linear-gradient(145deg,#eef4ff,#f8f1ff)}
 .mart-associates .associate-card-top{display:flex;align-items:center;justify-content:space-between;gap:1rem;margin-bottom:1rem}
 .mart-associates .associate-icon{display:grid;place-items:center;width:42px;height:42px;border-radius:12px;background:#e8f1fa;color:#28618a}
 .mart-associates .associate-card:nth-child(4n+2) .associate-icon{background:#eef4e4;color:#526e27}

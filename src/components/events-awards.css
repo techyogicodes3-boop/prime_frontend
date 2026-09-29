@@ -32,7 +32,7 @@
 .events-awards-page .video-placeholder svg { color:#956215; }
 .events-awards-page .video-placeholder p { font-weight:700; }
 .events-awards-page .video-placeholder small { color:#415567; }
-.events-awards-page .why-event-platform { background-image:linear-gradient(100deg,#fffaf0ed,#f6f4e7d4),url('/images/prism-official/school-community.jpg'); }
+.events-awards-page .why-event-platform { background:#f2f7f3; }
 .events-awards-page .why-event-platform img { width:160px; height:160px; object-fit:contain; border:1px solid #e4d9b8; border-radius:1.25rem; box-shadow:0 10px 25px #193d3015; }
 .events-awards-page .events-final-cta { background-image:linear-gradient(100deg,#edf6f6ed,#f2f7eed6),url('/images/prism-official/school-properties-location-background.png'); }
 .events-awards-page .events-final-cta h2 { color:#10263f; font-size:clamp(2rem,4vw,3.5rem); font-weight:800; line-height:1.15; }

@@ -5,3 +5,7 @@
 @media(prefers-reduced-motion:reduce){.sm-system *{animation:none!important;transition:none!important;scroll-behavior:auto!important}.sm-card:hover,.sm-card:hover .sm-media>img{transform:none}}
 
 .sm-related{margin-top:48px}.sm-related>h2{font-size:26px;font-weight:750;margin-bottom:24px}
+
+/* Compact, two-row material search. */
+@media(min-width:1051px){.sm-filters{grid-template-columns:repeat(4,minmax(0,1fr))}.sm-keyword{grid-column:span 2}.sm-filter-actions{grid-column:span 3;justify-content:flex-end;align-items:flex-end}}
+@media(min-width:621px) and (max-width:1050px){.sm-filters{grid-template-columns:repeat(2,minmax(0,1fr))}.sm-keyword,.sm-filter-actions{grid-column:span 2}.sm-filter-actions{justify-content:flex-end}}

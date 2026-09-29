@@ -11,5 +11,10 @@
 [id="industry-associates-services"] .services-target-card h3{font-size:.9rem;line-height:1.4;color:#10263f}
 [id="industry-associates-services"] .services-target-card p{font-size:.78rem;line-height:1.6;color:#526477}
 [id="industry-associates-services"] .services-target-card>div>svg{color:#9b701e}
+.service-image-card h3{font-size:1.08rem!important;line-height:1.45!important}
+.service-image-card p{font-size:.92rem!important;line-height:1.7!important}
+.services-compact-grid .industry-single-line>div{min-height:76px;align-items:center;padding:1.1rem 1.2rem}
+.services-compact-grid .industry-single-line>div>div{justify-content:center}
+.services-compact-grid .industry-single-line h3{margin:0;font-size:1rem!important;line-height:1.35!important}
 @media(hover:hover){.services-compact-grid .services-target-card:hover{transform:translateY(-3px);box-shadow:0 12px 26px #10263f1a}.services-compact-grid .services-target-card:hover>div>svg{transform:scale(1.06)}}
 @media(prefers-reduced-motion:reduce){.services-compact-grid .services-target-card,.services-compact-grid .services-target-card>div>svg{transition:none!important}.services-compact-grid .services-target-card:hover,.services-compact-grid .services-target-card:hover>div>svg{transform:none!important}}

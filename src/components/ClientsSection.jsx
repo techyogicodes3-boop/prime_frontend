@@ -15,6 +15,7 @@ import keystone from '../assets/client-logos/keystone-school-of-engineering.jpeg
 import aitrc from '../assets/client-logos/aitrc.jpeg';
 
 const clients = [
+  ['/images/clients/first.jpeg', 'Ascent International Schools'],
   [yspm, 'YSPM'],
   [rajarshi, 'Rajarshi Shahu (RSCP)'],
   [jayawantrao, 'JSPM’s Jayawantrao Sawant College of Engineering'],
