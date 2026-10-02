@@ -27,6 +27,16 @@
 .events-awards-page .event-info-panel div:last-child { border:0; }
 .events-awards-page .event-info-panel dt { font-size:.76rem; font-weight:750; letter-spacing:.06em; text-transform:uppercase; color:#4b6274; }
 .events-awards-page .event-info-panel dd { font-weight:650; }
+.events-awards-page .events-webinars { background:linear-gradient(135deg,#eef6fa,#fff9eb 58%,#f2edf9); }
+.events-awards-page .webinar-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:1.25rem; margin-top:2rem; }
+.events-awards-page .webinar-card { display:flex; min-height:280px; flex-direction:column; align-items:flex-start; border:1px solid #d7e2e8; border-radius:1.25rem; background:#fff; padding:1.5rem; box-shadow:0 14px 38px #10263f12; }
+.events-awards-page .webinar-card>span { border-radius:999px; background:#10263f; padding:.4rem .7rem; color:#fff; font-size:.62rem; font-weight:800; letter-spacing:.1em; }
+.events-awards-page .webinar-date { display:flex; align-items:center; gap:.5rem; margin-top:1.25rem; color:#956215; font-size:.78rem; font-weight:750; }
+.events-awards-page .webinar-card h3 { margin-top:.8rem; font-size:1.25rem; font-weight:800; line-height:1.35; }
+.events-awards-page .webinar-card p { margin-top:.7rem; color:#415567; font-size:.88rem; line-height:1.65; }
+.events-awards-page .webinar-card .btn { margin-top:auto; padding-top:.7rem; padding-bottom:.7rem; }
+.events-awards-page .webinar-status { margin:2rem auto 0; max-width:760px; border:1px dashed #9db1bd; border-radius:1rem; background:#ffffffc9; padding:1.25rem; text-align:center; color:#415567; }
+.events-awards-page .webinar-error { border-color:#e2a8ad; background:#fff4f4; color:#8b2630; }
 .events-awards-page .recognition-video { background-image:linear-gradient(100deg,#edf5faeb,#f7fafbc9),url('/images/prism-official/school-workshop.jpg'); }
 .events-awards-page .video-placeholder { display:grid; place-items:center; gap:.65rem; max-width:750px; margin:1.5rem auto 0; padding:1.5rem; border:1px dashed #8fa8ba; border-radius:1.15rem; background:#ffffffe6; text-align:center; }
 .events-awards-page .video-placeholder svg { color:#956215; }
@@ -45,6 +55,7 @@
 @media(max-width:1023px) {
  .events-awards-page .events-hero-grid { grid-template-columns:1fr; }
  .events-awards-page .events-hero-visual { max-width:660px; margin-inline:auto; }
+ .events-awards-page .webinar-grid { grid-template-columns:repeat(2,minmax(0,1fr)); }
 }
 @media(max-width:639px) {
  .events-awards-page .event-info-panel div { grid-template-columns:1fr; gap:.4rem; }
@@ -52,6 +63,7 @@
  .events-awards-page .why-event-platform .wrap { text-align:center; }
  .events-awards-page .why-event-platform img { margin-inline:auto; }
  .events-awards-page .events-final-cta .wrap > div { flex-direction:column; }
+ .events-awards-page .webinar-grid { grid-template-columns:1fr; }
 }
 @media(prefers-reduced-motion:reduce) {
  .events-awards-page *, .events-awards-page *::before, .events-awards-page *::after { animation:none!important; transition:none!important; scroll-behavior:auto!important; }

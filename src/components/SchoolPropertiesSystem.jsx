@@ -1,9 +1,10 @@
 import PrismSectionHeading,{SectionSubtitle} from './SectionHeading';
 import {MaterialsAdmin} from './SchoolMaterialSystem';
 import ResourceAdmin from './ResourceAdmin';
+import CoPartnersAdmin from './CoPartnersAdmin';
 import React,{useEffect,useState} from 'react';
 import {Link,Navigate,useLocation,useNavigate,useParams,useSearchParams} from 'react-router-dom';
-import {MapPin,Ruler,ArrowRight,Plus,Search,Building2,LogOut,Eye,EyeOff,Upload,Trash2} from 'lucide-react';
+import {MapPin,Ruler,ArrowRight,Plus,Search,Building2,LogOut,Eye,EyeOff,Upload,Trash2,BookOpen,Handshake,PackageOpen} from 'lucide-react';
 import {defaults,options,validate,emailValid,phoneValid} from '../contracts/properties-schema.js';
 import {apiUrl} from '../lib/api.js';
 import toast from 'react-hot-toast';
@@ -53,8 +54,7 @@ function Badges({item}) {
   return <div className="Properties-badges"><span className={item.type==='Properties Required'?'required':'available'}>{item.type==='Properties Required'?'REQUIRED':'AVAILABLE'}</span>{item.urgent&&<span className="urgent">URGENT</span>}<span>{item.transaction?.toUpperCase()}</span>{complete&&<span className="urgent">{completedLabel}</span>}</div>;
 }
 export function PropertiesCard({item}) {
-  const completedLabel=item.dealStatus==='Sold'?'SOLD OUT':item.dealStatus==='Rented'?'LEASED':item.dealStatus.toUpperCase();
-  return <Link className="Properties-card" to={'/school-properties/'+item.slug}><div className="Properties-card-image"><img src={imageUrl(item.images?.[0])} alt={item.images?.length?item.title:'School property illustration'} loading="lazy" width="640" height="400" onError={e=>{e.currentTarget.onerror=null;e.currentTarget.src=fallback;}}/>{item.dealStatus!=='Open'&&<strong className="Properties-completed">{completedLabel}</strong>}</div><div className="Properties-card-body"><Badges item={item}/><small>{item.reference}</small><h3>{item.title}</h3><p><MapPin size={17}/>{item.location}</p><p><Ruler size={17}/>{item.area?.toLocaleString()} {item.areaUnit}</p><p><Building2 size={17}/>{item.propertyType}</p><p className="Properties-summary">{item.summary || item.description}</p><span className="Properties-card-action">{item.dealStatus==='Open'?'View Details':'View Completed Listing'} <ArrowRight size={17}/></span></div></Link>;
+  return <Link className="Properties-card" to={'/school-properties/'+item.slug}><div className="Properties-card-body"><Badges item={item}/><small>{item.reference}</small><h3>{item.title}</h3><p><MapPin size={17}/>{item.location}</p><p><Ruler size={17}/>{item.area?.toLocaleString()} {item.areaUnit}</p><p><Building2 size={17}/>{item.propertyType}</p><p className="Properties-summary">{item.summary || item.description}</p><span className="Properties-card-action">{item.dealStatus==='Open'?'View Details':'View Completed Listing'} <ArrowRight size={17}/></span></div></Link>;
 }
 export function PropertiesCTA() { return <div className="Properties-bottom-cta"><div><h3>Let’s find the right school property connection</h3><p>Share your requirement or submit a property for review.</p></div><div className="Properties-actions"><Link className="Properties-button required-button" to="/school-properties/requirement"><Search size={18}/>Submit Properties Requirement</Link><Link className="Properties-button available-button" to="/school-properties/list"><Building2 size={18}/>List Your Property</Link></div></div>; }
 export function HomeProperties() {
@@ -125,9 +125,15 @@ export function PropertiesAdmin() {
   if(location.pathname==='/admin'||location.pathname==='/admin/login')return <Navigate to="/admin/school-properties" replace/>;
   const request=async(url,opts={})=>{try{return await api(url,opts);}catch(e){if(e.status===401){sessionStorage.removeItem(ADMIN_TOKEN_KEY);setSession(null);navigate('/admin/login',{replace:true});}throw e;}};
   const logout=async()=>{try{await request('/api/admin/logout',{method:'POST'});}catch{}finally{sessionStorage.removeItem(ADMIN_TOKEN_KEY);setSession(null);navigate('/admin/login',{replace:true});}};
-  const menu=<aside className="admin-sidebar"><div><p className="eyebrow">PRISM ADMIN</p><h2>Content Manager</h2></div><nav className="sm-admin-nav" aria-label="Listing administration"><Link aria-current={location.pathname==='/admin/school-properties'?'page':undefined} to="/admin/school-properties">School Properties</Link><Link aria-current={location.pathname==='/admin/school-materials'?'page':undefined} to="/admin/school-materials">School Material Listings</Link><Link aria-current={location.pathname==='/admin/resources'?'page':undefined} to="/admin/resources">Knowledge Center</Link></nav><button className="Properties-button secondary" onClick={logout}><LogOut size={17}/>Logout</button></aside>;
-  const content=location.pathname==='/admin/school-materials'?<MaterialsAdmin request={request} onLogout={logout}/>:location.pathname==='/admin/resources'?<ResourceAdmin request={request}/>:<AdminDashboard request={request} username={session.username} sessionError={error}/>;
-  return <div className="admin-shell">{menu}<div className="admin-main">{content}</div></div>;
+  const sections={
+    '/admin/school-properties':['School Properties',Building2],
+    '/admin/school-materials':['School Material Listings',PackageOpen],
+    '/admin/co-partners':['Our Co-partners',Handshake],
+    '/admin/resources':['Knowledge Center',BookOpen],
+  },current=sections[location.pathname]||sections['/admin/school-properties'];
+  const menu=<aside className="admin-sidebar"><div className="admin-brand"><span>PE</span><div><p className="eyebrow">PRISM EDU</p><h2>Admin Console</h2></div></div><div className="admin-user"><span>{session.username?.slice(0,1).toUpperCase()}</span><div><small>Signed in as</small><strong>{session.username}</strong></div></div><nav className="sm-admin-nav" aria-label="Content administration">{Object.entries(sections).map(([path,[label,Icon]])=><Link key={path} aria-current={location.pathname===path?'page':undefined} to={path}><Icon size={18}/><span>{label}</span></Link>)}</nav><button className="admin-logout" onClick={logout}><LogOut size={17}/>Logout</button></aside>;
+  const content=location.pathname==='/admin/school-materials'?<MaterialsAdmin request={request} onLogout={logout}/>:location.pathname==='/admin/co-partners'?<CoPartnersAdmin request={request}/>:location.pathname==='/admin/resources'?<ResourceAdmin request={request}/>:<AdminDashboard request={request} username={session.username} sessionError={error}/>;
+  return <div className="admin-shell">{menu}<div className="admin-main"><header className="admin-topbar"><div><small>Administration</small><strong>{current[0]}</strong></div><span>Prism Edu Consultancy</span></header><div className="admin-content">{content}</div></div></div>;
 }
 function Login({onLogin}) {
   const [show,setShow]=useState(false),[busy,setBusy]=useState(false),[error,setError]=useState('');
