@@ -30,18 +30,17 @@ const clients = [
   [aitrc, 'AITRC'],
 ];
 
-const gallery = [
-  ['WhatsApp Image 2026-09-30 at 10.48.16 PM.jpeg', 'Students and educators sharing a school activity'],
-  ['WhatsApp Image 2026-09-30 at 10.48.17 PM (1).jpeg', 'School leadership and educator collaboration'],
-  ['WhatsApp Image 2026-09-30 at 10.48.17 PM.jpeg', 'Prism Edu school engagement'],
-  ['WhatsApp Image 2026-09-30 at 8.45.29 AM.jpeg', 'Student learning and community activity'],
-  ['WhatsApp Image 2026-09-30 at 8.45.31 AM.jpeg', 'Educational community moment'],
-  ['WhatsApp Image 2026-09-30 at 8.45.33 AM.jpeg', 'Prism Edu institutional engagement'],
-  ['WhatsApp Image 2026-09-30 at 8.45.37 AM (1).jpeg', 'School collaboration in action'],
-  ['WhatsApp Image 2026-09-30 at 8.45.53 AM (1).jpeg', 'Learning and leadership moment'],
-  ['WhatsApp Image 2026-09-30 at 8.45.55 AM (1).jpeg', 'Education community gathering'],
-  ['WhatsApp Image 2026-09-30 at 8.45.55 AM.jpeg', 'A memorable Prism Edu moment'],
-].map(([file,caption])=>['/images/gallery/'+encodeURIComponent(file),caption]);
+const galleryFiles = [
+  'prism-gallery-01.jpeg','prism-gallery-02.jpeg','prism-gallery-04.jpeg','prism-gallery-05.jpeg',
+  'prism-gallery-06.jpeg','prism-gallery-08.jpeg','prism-gallery-09.jpeg','prism-gallery-10.jpeg',
+  'prism-gallery-11.jpeg','prism-gallery-12.jpeg','WhatsApp Image 2026-09-30 at 10.48.16 PM.jpeg','WhatsApp Image 2026-09-30 at 10.48.17 PM (1).jpeg',
+  'WhatsApp Image 2026-09-30 at 10.48.17 PM.jpeg','WhatsApp Image 2026-09-30 at 8.45.29 AM.jpeg','WhatsApp Image 2026-09-30 at 8.45.31 AM.jpeg','WhatsApp Image 2026-09-30 at 8.45.33 AM.jpeg',
+  'WhatsApp Image 2026-09-30 at 8.45.37 AM (1).jpeg','WhatsApp Image 2026-09-30 at 8.45.53 AM (1).jpeg','WhatsApp Image 2026-09-30 at 8.45.55 AM (1).jpeg','WhatsApp Image 2026-09-30 at 8.45.55 AM.jpeg',
+  'WhatsApp Image 2026-09-30 at 8.45.56 AM (1).jpeg','WhatsApp Image 2026-09-30 at 8.45.56 AM.jpeg','WhatsApp Image 2026-09-30 at 8.46.03 AM.jpeg','WhatsApp Image 2026-09-30 at 8.46.04 AM.jpeg',
+  'WhatsApp Image 2026-09-30 at 8.46.09 AM.jpeg','WhatsApp Image 2026-09-30 at 8.46.10 AM.jpeg','WhatsApp Image 2026-09-30 at 8.46.11 AM.jpeg','WhatsApp Image 2026-09-30 at 9.10.59 AM.jpeg',
+];
+const gallery=galleryFiles.map((file,index)=>({src:'/images/gallery/'+encodeURIComponent(file),alt:`Prism Edu gallery photograph ${index+1}`}));
+const galleryRows=Array.from({length:4},(_,row)=>Array.from({length:8},(_,column)=>gallery[(row*8+column)%gallery.length]));
 
 export default function ClientsSection({standalone = false}) {
   const [expanded, setExpanded] = useState(false);
@@ -50,7 +49,7 @@ export default function ClientsSection({standalone = false}) {
     <div className="prism-client-image"><img src={file} alt={duplicate?'':`${name} – Prism Edu Consultancy Client`} loading="lazy" decoding="async"/></div>
     <figcaption>{name}</figcaption>
   </figure>;
-  const galleryCard=([src,caption],duplicate=false)=><figure className="client-gallery-card" key={(duplicate?'duplicate-':'')+src}><img src={src} alt={duplicate?'':caption} loading="lazy" decoding="async"/><figcaption>{caption}</figcaption></figure>;
+  const galleryCard=(item,duplicate=false)=><figure className="client-gallery-card" key={(duplicate?'duplicate-':'')+item.src}><img src={item.src} alt={duplicate?'':item.alt} loading="lazy" decoding="async"/></figure>;
   return <><section id={standalone ? 'our-clients' : 'about-clients'} className={`about-anchor-section prism-clients bg-[#edf5f8] py-16 md:py-24${standalone ? ' prism-clients-page' : ''}`} aria-labelledby="clients-heading">
     <div className="wrap">
       <div className="mx-auto max-w-4xl text-center">
@@ -60,5 +59,5 @@ export default function ClientsSection({standalone = false}) {
       {standalone||expanded?<div id="prism-client-grid" className="prism-clients-grid">{clients.map(item=>clientCard(item))}</div>:<div id="prism-client-grid" className="prism-clients-marquee"><div className="prism-clients-track"><div className="prism-clients-group">{clients.map(item=>clientCard(item))}</div><div className="prism-clients-group" aria-hidden="true">{clients.map(item=>clientCard(item,true))}</div></div></div>}
       {!standalone && <div className="mt-8 text-center"><button type="button" className="btn" aria-expanded={expanded} aria-controls="prism-client-grid" onClick={() => setExpanded(value => !value)}>{expanded ? 'Show Client Slider' : 'View All Clients'}</button></div>}
     </div>
-  </section>{standalone&&<section className="client-gallery-section py-16 md:py-24" aria-labelledby="client-gallery-heading"><div className="wrap"><div className="mx-auto max-w-3xl text-center"><p className="section-kicker">GALLERY</p><PrismSectionHeading id="client-gallery-heading" className="section-heading">Our Gallery</PrismSectionHeading><SectionSubtitle className="mx-auto mt-4 max-w-2xl leading-7 text-slate-600">A glimpse of our work with students, educators and educational institutions.</SectionSubtitle></div>{galleryExpanded?<div id="client-gallery" className="client-gallery-grid">{gallery.map(item=>galleryCard(item))}</div>:<div id="client-gallery" className="client-gallery-marquee"><div className="client-gallery-track"><div className="client-gallery-group">{gallery.map(item=>galleryCard(item))}</div><div className="client-gallery-group" aria-hidden="true">{gallery.map(item=>galleryCard(item,true))}</div></div></div>}<div className="mt-9 text-center"><button type="button" className="btn" aria-expanded={galleryExpanded} aria-controls="client-gallery" onClick={()=>setGalleryExpanded(value=>!value)}>{galleryExpanded?'Show Gallery Slider':'View All'}</button></div></div></section>}</>;
+  </section>{standalone&&<section className="client-gallery-section py-16 md:py-24" aria-labelledby="client-gallery-heading"><div className="wrap"><div className="mx-auto max-w-3xl text-center"><PrismSectionHeading id="client-gallery-heading" className="section-heading">Our Gallery</PrismSectionHeading></div>{galleryExpanded?<div id="client-gallery" className="client-gallery-grid">{gallery.map(item=>galleryCard(item))}</div>:<div id="client-gallery" className="client-gallery-rows">{galleryRows.map((row,rowIndex)=><div className={`client-gallery-marquee client-gallery-row-${rowIndex+1}`} key={rowIndex}><div className="client-gallery-track"><div className="client-gallery-group">{row.map(item=>galleryCard(item))}</div><div className="client-gallery-group" aria-hidden="true">{row.map(item=>galleryCard(item,true))}</div></div></div>)}</div>}<div className="mt-9 text-center"><button type="button" className="btn" aria-expanded={galleryExpanded} aria-controls="client-gallery" onClick={()=>setGalleryExpanded(value=>!value)}>{galleryExpanded?'Show Gallery Sliders':'View All'}</button></div></div></section>}</>;
 }

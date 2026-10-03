@@ -19,13 +19,18 @@
 @media(prefers-reduced-motion:reduce){.prism-clients-track{animation:none}.prism-client-card,.prism-client-image img{transition:none}.prism-client-card:hover,.prism-client-card:hover img{transform:none}}
 .prism-clients-page{background-image:linear-gradient(rgba(237,245,248,.94),rgba(237,245,248,.97)),url('/images/prism-official/school-community.jpg');background-size:cover;background-position:center;background-repeat:no-repeat}
 .client-gallery-section{overflow:hidden;background:linear-gradient(145deg,#fff 0%,#f7fafc 52%,#fff8e8 100%)}
-.client-gallery-marquee{width:100%;overflow:hidden;margin-top:2.5rem;padding:4px 0 16px}
+.client-gallery-rows{margin-top:2.5rem}
+.client-gallery-marquee{width:100%;overflow:hidden;padding:4px 0 16px}
+.client-gallery-marquee+.client-gallery-marquee{margin-top:1rem}
 .client-gallery-track{display:flex;width:max-content;animation:clientGalleryMarquee 46s linear infinite;will-change:transform}
+.client-gallery-row-2 .client-gallery-track{animation-duration:50s}
+.client-gallery-row-3 .client-gallery-track{animation-duration:54s}
+.client-gallery-row-4 .client-gallery-track{animation-duration:58s}
 .client-gallery-group{display:flex;gap:1.25rem;padding-right:1.25rem}
 .client-gallery-card{width:calc(100vw - 3rem);min-width:0;margin:0;overflow:hidden;border:1px solid #dce5eb;border-radius:1.4rem;background:#fff;box-shadow:0 14px 38px rgba(16,38,63,.09)}
 .client-gallery-card img{display:block;width:100%;aspect-ratio:4/3;object-fit:cover}
-.client-gallery-card figcaption{min-height:64px;padding:1rem 1.1rem;color:#10263f;font-size:.84rem;font-weight:750;line-height:1.45}
 .client-gallery-grid{display:grid;grid-template-columns:1fr;gap:1.25rem;margin-top:2.5rem}
+.client-gallery-grid .client-gallery-card{width:auto}
 .client-gallery-marquee:hover .client-gallery-track{animation-play-state:paused}
 @keyframes clientGalleryMarquee{to{transform:translateX(-50%)}}
 @media(min-width:640px){.client-gallery-card{width:calc((min(100vw - 4rem,1176px) - 1.25rem)/2)}.client-gallery-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}

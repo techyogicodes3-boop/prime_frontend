@@ -48,7 +48,6 @@ export default function AwardsGallery({existingMedia=[]}){
   const current=photo===null?null:items[photo];
   const card=(item,index,duplicate=false)=><article key={(duplicate?'duplicate-':'')+item.src+'-'+index} className="recognition-card">
     <button className="recognition-image" type="button" tabIndex={duplicate?-1:undefined} aria-label={`View ${item.title}`} onClick={e=>{trigger.current=e.currentTarget;setPhoto(index)}}><img src={item.src} alt={`${item.title} – Prism Edu Consultancy Award`} loading="lazy"/><Maximize2 size={18} aria-hidden="true"/></button>
-    <div className="recognition-copy"><h3>{item.title}</h3><dl>{[['Awarding organisation',item.organisation],['Recipient',item.recipient],['Year / date',item.date]].filter(([,value])=>value).map(([label,value])=><div key={label}><dt>{label}</dt><dd>{value}</dd></div>)}</dl><p>{item.description}</p></div>
   </article>;
   const marquee=(row,offset,rowClass)=><div className={'recognition-marquee '+rowClass}><div className="recognition-track"><div className="recognition-group">{row.map((item,index)=>card(item,index+offset))}</div><div className="recognition-group" aria-hidden="true">{row.map((item,index)=>card(item,index+offset,true))}</div></div></div>;
   return <>{expanded?<div id="recognition-gallery" className="recognition-grid">{items.map((item,index)=>card(item,index))}</div>:<div id="recognition-gallery" className="recognition-marquee-stack">{marquee(firstRow,0,'recognition-row-one')}{marquee(secondRowAwards,firstRow.length,'recognition-row-two')}</div>}
@@ -56,7 +55,7 @@ export default function AwardsGallery({existingMedia=[]}){
   <dialog ref={dialog} className="award-lightbox" aria-label="Award photograph viewer" onCancel={e=>{e.preventDefault();close()}} onClick={e=>{if(e.target===e.currentTarget)close()}} onKeyDown={e=>{if(e.key==='ArrowRight'){e.preventDefault();move(1)}if(e.key==='ArrowLeft'){e.preventDefault();move(-1)}}}>
     <button type="button" className="award-lightbox-close" aria-label="Close image viewer" onClick={close} autoFocus><X/></button>
     <button type="button" className="award-lightbox-arrow left-3" aria-label="Previous photograph" onClick={()=>move(-1)}><ArrowLeft/></button>
-    {current&&<figure><img src={current.src} alt={`${current.title} – Prism Edu Consultancy Award`}/><figcaption aria-live="polite">{current.title} ({photo+1} / {items.length})</figcaption></figure>}
+    {current&&<figure><img src={current.src} alt={`${current.title} – Prism Edu Consultancy Award`}/></figure>}
     <button type="button" className="award-lightbox-arrow right-3" aria-label="Next photograph" onClick={()=>move(1)}><ArrowRight/></button>
   </dialog></>;
 }
