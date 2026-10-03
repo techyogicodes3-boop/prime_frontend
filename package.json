@@ -9,6 +9,7 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
+    "test": "node --test",
     "start": "vite --host 0.0.0.0 --port $PORT"
   },
   "dependencies": {
