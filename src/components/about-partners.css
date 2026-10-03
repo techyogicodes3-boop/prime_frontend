@@ -20,6 +20,9 @@
 #about-partners .about-partner-grid{grid-auto-rows:1fr;max-width:1120px;margin-inline:auto}
 #about-partners .about-partner-grid article{padding:clamp(1.25rem,3vw,2rem);background:linear-gradient(145deg,#f2f7fb,#fff);border-top-color:#5682a3}
 #about-partners .about-partner-grid article:nth-child(2){background:linear-gradient(145deg,#faf7ee,#fff);border-top-color:#d7ad4c}
+#about-partners .partner-logo{width:100%;height:210px;margin-bottom:1.25rem;border:1px solid #e0e7ec;border-radius:1rem;background:#fff;object-fit:contain;padding:.75rem}
+#about-partners .partner-identity-card p{margin-top:.7rem;font-weight:650;color:#425d72}
+#about-partners .partner-location{margin-top:auto;padding-top:1rem;color:#8b5e1d;font-size:.86rem;font-weight:800}
 #about-partners .about-partner-grid strong{min-height:0;margin-top:.6rem;color:#425d72;font-size:1rem;line-height:1.5}
 #about-partners .partners-highlight{margin-top:1rem;background:#fff0cd;color:#735017}
 #about-partners .partner-services{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.65rem;list-style:none;padding:0;margin:1.3rem 0 0}

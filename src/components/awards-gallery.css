@@ -1,5 +1,9 @@
 .recognition-grid{display:grid;grid-template-columns:1fr;gap:24px;margin-top:40px}
 .recognition-marquee{width:100%;overflow:hidden;margin-top:40px;padding:4px 0 14px}
+.recognition-marquee-stack{margin-top:40px}
+.recognition-marquee-stack .recognition-marquee{margin-top:0}
+.recognition-marquee-stack .recognition-row-two{margin-top:18px}
+.recognition-row-two .recognition-track{animation-duration:52s}
 .recognition-track{display:flex;width:max-content;animation:recognitionMarquee 46s linear infinite;will-change:transform}
 .recognition-group{display:flex;gap:.75rem;padding-right:.75rem}
 .recognition-marquee .recognition-card{width:calc((min(100vw - 2.5rem,1176px) - 1.5rem)/3)}

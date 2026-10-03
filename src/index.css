@@ -448,6 +448,13 @@ section:has(.md\:grid-cols-5) .md\:grid-cols-5:before{content:"PRISM EDU\A Your 
 @media(max-width:979px){.admin-shell{grid-template-columns:220px minmax(0,1fr)}.admin-sidebar{height:100vh;padding:1rem .75rem}.admin-sidebar .sm-admin-nav{display:flex;grid-template-columns:none}.admin-user{display:none}.admin-topbar>span{display:none}}
 @media(max-width:720px){.admin-route-main,.admin-shell{height:100svh}.admin-shell{grid-template-columns:1fr;grid-template-rows:auto minmax(0,1fr)}.admin-sidebar{height:auto;gap:.75rem;border-right:0;border-bottom:1px solid rgba(255,255,255,.16);padding:.7rem}.admin-brand{padding:.15rem .25rem .6rem}.admin-brand>span{width:38px;height:38px}.admin-sidebar .sm-admin-nav{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.35rem}.admin-sidebar .sm-admin-nav a{min-height:40px;padding:.5rem;font-size:.7rem}.admin-logout{position:absolute;right:.7rem;top:.7rem;width:40px;min-height:38px;padding:0;font-size:0}.admin-main{height:auto}.admin-topbar{min-height:62px}.admin-content{padding:1rem}.admin-partner-grid{grid-template-columns:1fr}.admin-cover-upload>label{align-items:flex-start;flex-direction:column}.admin-cover-preview{align-items:flex-start;flex-direction:column}}
 
+/* Center incomplete Industry Associate rows and provide a clear admin exit action. */
+@media(min-width:1024px){.co-partners-grid{grid-template-columns:repeat(auto-fit,minmax(280px,360px));justify-content:center}}
+.admin-back-link{display:inline-flex;align-items:center;justify-content:center;gap:.45rem;border:1px solid #d3dee6;border-radius:.75rem;background:#102f49;padding:.65rem .9rem;color:#fff;font-size:.72rem;font-weight:800;box-shadow:0 6px 18px rgba(16,47,73,.14);transition:background .18s,transform .18s}
+.admin-back-link:hover{transform:translateY(-1px);background:#194b69}
+.admin-back-link:focus-visible{outline:3px solid #eeb640;outline-offset:3px}
+@media(max-width:520px){.admin-back-link{padding:.6rem .7rem;font-size:.66rem}}
+
 /* Final alignment and contrast refinements for service and values sections. */
 .service-cards-layout{width:100%;max-width:1240px;margin:2rem auto 0}
 #school-services .service-section-intro,#school-properties-support .service-section-intro,#industry-associates-services .service-section-intro,#licensing-legal .service-section-intro,#digital-services .service-section-intro{color:rgba(255,255,255,.88)!important}

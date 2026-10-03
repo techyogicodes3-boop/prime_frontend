@@ -30,21 +30,27 @@ const clients = [
   [aitrc, 'AITRC'],
 ];
 
-const clientHighlights = [
-  ['/WhatsApp%20Image%202026-09-30%20at%208.46.05%20AM.jpeg', 'Leadership recognition ceremony'],
-  ['/WhatsApp%20Image%202026-09-30%20at%208.45.56%20AM%20(2).jpeg', 'Education excellence awards'],
-  ['/WhatsApp%20Image%202026-09-30%20at%208.45.53%20AM%20(2).jpeg', 'Education community celebration'],
-  ['/WhatsApp%20Image%202026-09-30%20at%208.45.37%20AM.jpeg', 'Leadership excellence recognition'],
-  ['/WhatsApp%20Image%202026-09-30%20at%208.45.36%20AM.jpeg', 'Professional achievement moment'],
-  ['/WhatsApp%20Image%202026-09-30%20at%208.45.35%20AM.jpeg', 'School leaders felicitation'],
-];
+const gallery = [
+  ['WhatsApp Image 2026-09-30 at 10.48.16 PM.jpeg', 'Students and educators sharing a school activity'],
+  ['WhatsApp Image 2026-09-30 at 10.48.17 PM (1).jpeg', 'School leadership and educator collaboration'],
+  ['WhatsApp Image 2026-09-30 at 10.48.17 PM.jpeg', 'Prism Edu school engagement'],
+  ['WhatsApp Image 2026-09-30 at 8.45.29 AM.jpeg', 'Student learning and community activity'],
+  ['WhatsApp Image 2026-09-30 at 8.45.31 AM.jpeg', 'Educational community moment'],
+  ['WhatsApp Image 2026-09-30 at 8.45.33 AM.jpeg', 'Prism Edu institutional engagement'],
+  ['WhatsApp Image 2026-09-30 at 8.45.37 AM (1).jpeg', 'School collaboration in action'],
+  ['WhatsApp Image 2026-09-30 at 8.45.53 AM (1).jpeg', 'Learning and leadership moment'],
+  ['WhatsApp Image 2026-09-30 at 8.45.55 AM (1).jpeg', 'Education community gathering'],
+  ['WhatsApp Image 2026-09-30 at 8.45.55 AM.jpeg', 'A memorable Prism Edu moment'],
+].map(([file,caption])=>['/images/gallery/'+encodeURIComponent(file),caption]);
 
 export default function ClientsSection({standalone = false}) {
   const [expanded, setExpanded] = useState(false);
+  const [galleryExpanded, setGalleryExpanded] = useState(false);
   const clientCard=([file,name],duplicate=false)=><figure className="prism-client-card" key={(duplicate?'duplicate-':'')+file}>
     <div className="prism-client-image"><img src={file} alt={duplicate?'':`${name} – Prism Edu Consultancy Client`} loading="lazy" decoding="async"/></div>
     <figcaption>{name}</figcaption>
   </figure>;
+  const galleryCard=([src,caption],duplicate=false)=><figure className="client-gallery-card" key={(duplicate?'duplicate-':'')+src}><img src={src} alt={duplicate?'':caption} loading="lazy" decoding="async"/><figcaption>{caption}</figcaption></figure>;
   return <><section id={standalone ? 'our-clients' : 'about-clients'} className={`about-anchor-section prism-clients bg-[#edf5f8] py-16 md:py-24${standalone ? ' prism-clients-page' : ''}`} aria-labelledby="clients-heading">
     <div className="wrap">
       <div className="mx-auto max-w-4xl text-center">
@@ -54,5 +60,5 @@ export default function ClientsSection({standalone = false}) {
       {standalone||expanded?<div id="prism-client-grid" className="prism-clients-grid">{clients.map(item=>clientCard(item))}</div>:<div id="prism-client-grid" className="prism-clients-marquee"><div className="prism-clients-track"><div className="prism-clients-group">{clients.map(item=>clientCard(item))}</div><div className="prism-clients-group" aria-hidden="true">{clients.map(item=>clientCard(item,true))}</div></div></div>}
       {!standalone && <div className="mt-8 text-center"><button type="button" className="btn" aria-expanded={expanded} aria-controls="prism-client-grid" onClick={() => setExpanded(value => !value)}>{expanded ? 'Show Client Slider' : 'View All Clients'}</button></div>}
     </div>
-  </section>{standalone&&<section className="client-highlights-section py-16 md:py-24" aria-labelledby="client-highlights-heading"><div className="wrap"><div className="mx-auto max-w-3xl text-center"><p className="section-kicker">PRISM EDU MOMENTS</p><PrismSectionHeading id="client-highlights-heading" className="section-heading">Recognition &amp; Collaboration</PrismSectionHeading><SectionSubtitle className="mx-auto mt-4 max-w-2xl leading-7 text-slate-600">Celebrating meaningful connections, professional achievements and shared milestones across the education community.</SectionSubtitle></div><div className="client-highlights-grid">{clientHighlights.map(([src,caption],index)=><figure className="client-highlight-card" key={src}><div className="client-highlight-image"><img src={src} alt={caption} loading="lazy" decoding="async"/></div><figcaption><span>{String(index+1).padStart(2,'0')}</span>{caption}</figcaption></figure>)}</div></div></section>}</>;
+  </section>{standalone&&<section className="client-gallery-section py-16 md:py-24" aria-labelledby="client-gallery-heading"><div className="wrap"><div className="mx-auto max-w-3xl text-center"><p className="section-kicker">GALLERY</p><PrismSectionHeading id="client-gallery-heading" className="section-heading">Our Gallery</PrismSectionHeading><SectionSubtitle className="mx-auto mt-4 max-w-2xl leading-7 text-slate-600">A glimpse of our work with students, educators and educational institutions.</SectionSubtitle></div>{galleryExpanded?<div id="client-gallery" className="client-gallery-grid">{gallery.map(item=>galleryCard(item))}</div>:<div id="client-gallery" className="client-gallery-marquee"><div className="client-gallery-track"><div className="client-gallery-group">{gallery.map(item=>galleryCard(item))}</div><div className="client-gallery-group" aria-hidden="true">{gallery.map(item=>galleryCard(item,true))}</div></div></div>}<div className="mt-9 text-center"><button type="button" className="btn" aria-expanded={galleryExpanded} aria-controls="client-gallery" onClick={()=>setGalleryExpanded(value=>!value)}>{galleryExpanded?'Show Gallery Slider':'View All'}</button></div></div></section>}</>;
 }

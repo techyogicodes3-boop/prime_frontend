@@ -11,6 +11,13 @@ import a7 from '../assets/awards/award-7.jpeg';
 import a8 from '../assets/awards/award-8.jpeg';
 import a9 from '../assets/awards/award-9.jpeg';
 import a11 from '../assets/awards/award-11.jpeg';
+import p1 from '../assets/awards/award prism_page-0001.jpg';
+import p2 from '../assets/awards/award prism_page-0002.jpg';
+import p3 from '../assets/awards/award prism_page-0003.jpg';
+import p4 from '../assets/awards/award prism_page-0004.jpg';
+
+const secondRowModules=import.meta.glob('../assets/awards_2/*',{eager:true,import:'default'});
+const secondRowAwards=Object.entries(secondRowModules).sort(([left],[right])=>left.localeCompare(right)).map(([path,src],index)=>({src,title:`Award & Achievement ${index+1}`,description:'A Prism Edu recognition and professional achievement.',sourcePath:path}));
 
 // Metadata transcribed only from the supplied photographs; unknown fields stay hidden.
 const awards=[
@@ -24,21 +31,27 @@ const awards=[
   {src:a8,title:'Guest of Honour – Educators’ Appreciation',organisation:'NCEAS / ENARK',recipient:'Ms. Prajakta Shinde',date:'30 August 2026',description:'Recognition for presence and support at the NCEAS Launch & Educators’ Appreciation Program, MIT-WPU, Pune.'},
   {src:a9,title:'Certificate of Honour',organisation:'NCEAS; presented by ENARK',recipient:'Ms. Prajakta Shinde',date:'30 August 2026',description:'Guest of Honour certificate for the NCEAS Launch & Educators’ Appreciation Programme at MIT World Peace University, Pune.'},
   {src:a11,title:'Education Icon of the Year 2026',organisation:'Plus 91 Media',recipient:'Ms. Prajakta Shinde',date:'18 July 2026',description:'Presented at the Pune Education Conclave, uniting school and higher-education leaders.'},
+  {src:p1,title:'Prism Edu Award & Achievement',description:'Recognition from the Prism Edu professional journey.'},
+  {src:p2,title:'Prism Edu Award & Achievement',description:'Recognition from the Prism Edu professional journey.'},
+  {src:p3,title:'Prism Edu Award & Achievement',description:'Recognition from the Prism Edu professional journey.'},
+  {src:p4,title:'Prism Edu Award & Achievement',description:'Recognition from the Prism Edu professional journey.'},
 ];
 
 export default function AwardsGallery({existingMedia=[]}){
-  const items=[...awards,...existingMedia.map(item=>({...item,title:item.caption,description:item.caption}))];
+  const firstRow=[...awards,...existingMedia.map(item=>({...item,title:item.caption,description:item.caption}))];
+  const items=[...firstRow,...secondRowAwards];
   const [photo,setPhoto]=useState(null),[expanded,setExpanded]=useState(false);
   const dialog=useRef(null),trigger=useRef(null);
   const close=()=>{dialog.current?.close();setPhoto(null);trigger.current?.focus()};
   const move=n=>setPhoto(i=>(i+n+items.length)%items.length);
   useEffect(()=>{if(photo!==null&&!dialog.current.open)dialog.current.showModal()},[photo]);
   const current=photo===null?null:items[photo];
-  const card=(item,index,duplicate=false)=><article key={(duplicate?'duplicate-':'')+item.src} className="recognition-card">
+  const card=(item,index,duplicate=false)=><article key={(duplicate?'duplicate-':'')+item.src+'-'+index} className="recognition-card">
     <button className="recognition-image" type="button" tabIndex={duplicate?-1:undefined} aria-label={`View ${item.title}`} onClick={e=>{trigger.current=e.currentTarget;setPhoto(index)}}><img src={item.src} alt={`${item.title} – Prism Edu Consultancy Award`} loading="lazy"/><Maximize2 size={18} aria-hidden="true"/></button>
     <div className="recognition-copy"><h3>{item.title}</h3><dl>{[['Awarding organisation',item.organisation],['Recipient',item.recipient],['Year / date',item.date]].filter(([,value])=>value).map(([label,value])=><div key={label}><dt>{label}</dt><dd>{value}</dd></div>)}</dl><p>{item.description}</p></div>
   </article>;
-  return <>{expanded?<div id="recognition-gallery" className="recognition-grid">{items.map((item,index)=>card(item,index))}</div>:<div id="recognition-gallery" className="recognition-marquee"><div className="recognition-track"><div className="recognition-group">{items.map((item,index)=>card(item,index))}</div><div className="recognition-group" aria-hidden="true">{items.map((item,index)=>card(item,index,true))}</div></div></div>}
+  const marquee=(row,offset,rowClass)=><div className={'recognition-marquee '+rowClass}><div className="recognition-track"><div className="recognition-group">{row.map((item,index)=>card(item,index+offset))}</div><div className="recognition-group" aria-hidden="true">{row.map((item,index)=>card(item,index+offset,true))}</div></div></div>;
+  return <>{expanded?<div id="recognition-gallery" className="recognition-grid">{items.map((item,index)=>card(item,index))}</div>:<div id="recognition-gallery" className="recognition-marquee-stack">{marquee(firstRow,0,'recognition-row-one')}{marquee(secondRowAwards,firstRow.length,'recognition-row-two')}</div>}
   <div className="mt-10 text-center"><button type="button" className="btn" aria-expanded={expanded} aria-controls="recognition-gallery" onClick={()=>setExpanded(value=>!value)}>{expanded?'Show Slider':'View All Awards & Achievements'}</button></div>
   <dialog ref={dialog} className="award-lightbox" aria-label="Award photograph viewer" onCancel={e=>{e.preventDefault();close()}} onClick={e=>{if(e.target===e.currentTarget)close()}} onKeyDown={e=>{if(e.key==='ArrowRight'){e.preventDefault();move(1)}if(e.key==='ArrowLeft'){e.preventDefault();move(-1)}}}>
     <button type="button" className="award-lightbox-close" aria-label="Close image viewer" onClick={close} autoFocus><X/></button>

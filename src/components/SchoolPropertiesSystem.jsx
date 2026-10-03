@@ -4,7 +4,7 @@ import ResourceAdmin from './ResourceAdmin';
 import CoPartnersAdmin from './CoPartnersAdmin';
 import React,{useEffect,useState} from 'react';
 import {Link,Navigate,useLocation,useNavigate,useParams,useSearchParams} from 'react-router-dom';
-import {MapPin,Ruler,ArrowRight,Plus,Search,Building2,LogOut,Eye,EyeOff,Upload,Trash2,BookOpen,Handshake,PackageOpen} from 'lucide-react';
+import {MapPin,Ruler,ArrowLeft,ArrowRight,Plus,Search,Building2,LogOut,Eye,EyeOff,Upload,Trash2,BookOpen,Handshake,PackageOpen} from 'lucide-react';
 import {defaults,options,validate,emailValid,phoneValid} from '../contracts/properties-schema.js';
 import {apiUrl} from '../lib/api.js';
 import toast from 'react-hot-toast';
@@ -128,12 +128,12 @@ export function PropertiesAdmin() {
   const sections={
     '/admin/school-properties':['School Properties',Building2],
     '/admin/school-materials':['School Material Listings',PackageOpen],
-    '/admin/co-partners':['Our Co-partners',Handshake],
+    '/admin/co-partners':['Industry Associates',Handshake],
     '/admin/resources':['Knowledge Center',BookOpen],
   },current=sections[location.pathname]||sections['/admin/school-properties'];
   const menu=<aside className="admin-sidebar"><div className="admin-brand"><span>PE</span><div><p className="eyebrow">PRISM EDU</p><h2>Admin Console</h2></div></div><div className="admin-user"><span>{session.username?.slice(0,1).toUpperCase()}</span><div><small>Signed in as</small><strong>{session.username}</strong></div></div><nav className="sm-admin-nav" aria-label="Content administration">{Object.entries(sections).map(([path,[label,Icon]])=><Link key={path} aria-current={location.pathname===path?'page':undefined} to={path}><Icon size={18}/><span>{label}</span></Link>)}</nav><button className="admin-logout" onClick={logout}><LogOut size={17}/>Logout</button></aside>;
   const content=location.pathname==='/admin/school-materials'?<MaterialsAdmin request={request} onLogout={logout}/>:location.pathname==='/admin/co-partners'?<CoPartnersAdmin request={request}/>:location.pathname==='/admin/resources'?<ResourceAdmin request={request}/>:<AdminDashboard request={request} username={session.username} sessionError={error}/>;
-  return <div className="admin-shell">{menu}<div className="admin-main"><header className="admin-topbar"><div><small>Administration</small><strong>{current[0]}</strong></div><span>Prism Edu Consultancy</span></header><div className="admin-content">{content}</div></div></div>;
+  return <div className="admin-shell">{menu}<div className="admin-main"><header className="admin-topbar"><div><small>Administration</small><strong>{current[0]}</strong></div><Link className="admin-back-link" to="/"><ArrowLeft size={16}/>Back to Application</Link></header><div className="admin-content">{content}</div></div></div>;
 }
 function Login({onLogin}) {
   const [show,setShow]=useState(false),[busy,setBusy]=useState(false),[error,setError]=useState('');
