@@ -35,7 +35,7 @@ const galleryFiles = [
   'prism-gallery-06.jpeg','prism-gallery-08.jpeg','prism-gallery-09.jpeg','prism-gallery-10.jpeg',
   'prism-gallery-11.jpeg','prism-gallery-12.jpeg','WhatsApp Image 2026-09-30 at 10.48.16 PM.jpeg','WhatsApp Image 2026-09-30 at 10.48.17 PM (1).jpeg',
   'WhatsApp Image 2026-09-30 at 10.48.17 PM.jpeg','WhatsApp Image 2026-09-30 at 8.45.29 AM.jpeg','WhatsApp Image 2026-09-30 at 8.45.31 AM.jpeg','WhatsApp Image 2026-09-30 at 8.45.33 AM.jpeg',
-  'WhatsApp Image 2026-09-30 at 8.45.37 AM (1).jpeg','WhatsApp Image 2026-09-30 at 8.45.53 AM (1).jpeg','WhatsApp Image 2026-09-30 at 8.45.55 AM (1).jpeg','WhatsApp Image 2026-09-30 at 8.45.55 AM.jpeg',
+  'WhatsApp Image 2026-09-30 at 8.45.37 AM (1).jpeg','WhatsApp Image 2026-09-30 at 8.45.53 AM (1).jpeg','WhatsApp Image 2026-09-30 at 8.45.55 AM (1).jpeg',
   'WhatsApp Image 2026-09-30 at 8.45.56 AM (1).jpeg','WhatsApp Image 2026-09-30 at 8.45.56 AM.jpeg','WhatsApp Image 2026-09-30 at 8.46.03 AM.jpeg','WhatsApp Image 2026-09-30 at 8.46.04 AM.jpeg',
   'WhatsApp Image 2026-09-30 at 8.46.09 AM.jpeg','WhatsApp Image 2026-09-30 at 8.46.10 AM.jpeg','WhatsApp Image 2026-09-30 at 8.46.11 AM.jpeg','WhatsApp Image 2026-09-30 at 9.10.59 AM.jpeg',
 ];
