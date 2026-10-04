@@ -62,7 +62,8 @@ async function sendEnquiry(form,topic){
   const values=Object.fromEntries(entries),find=(...keys)=>keys.map(key=>values[key]).find(Boolean)||'';
   const message=find('message','Message','Brief requirement')||entries.filter(([key])=>!['name','Name','email','Email address','phone','Phone number'].includes(key)).map(([key,value])=>`${key}: ${value}`).join('\n');
   let response;
-  try{response=await fetch(apiUrl('/api/enquiries'),{method:'POST',credentials:'include',headers:{'Content-Type':'application/json'},body:JSON.stringify({name:find('name','Name','Contact Person'),email:find('email','Email','Email address'),phone:find('phone','Phone','Phone number','Mobile Number'),organization:find('organization','Organization','School / Organization Name'),location:find('location','City / Location','City'),topic,message})})}catch{const error='Unable to connect. Please check your internet connection and try again.';toast.error(error);throw Error(error)}
+  const payload={name:find('name','Name','Contact Person'),email:find('email','Email','Email address'),phone:find('phone','Phone','Phone number','Mobile Number'),organization:find('organization','Organization','School / Organization Name'),location:find('location','City / Location','City'),topic,message};
+  try{response=await fetch(apiUrl('/api/enquiries'),{method:'POST',credentials:'include',body:new URLSearchParams(payload)})}catch{const error='Unable to connect. Please check your internet connection and try again.';toast.error(error);throw Error(error)}
   const result=await response.json().catch(()=>({}));
   if(!response.ok){const message=result.error||'Unable to send your enquiry. Please try again.';toast.error(message);throw Error(message);}
   toast.success(result.message||'Your enquiry has been received.');
