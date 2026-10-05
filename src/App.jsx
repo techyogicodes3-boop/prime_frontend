@@ -1,5 +1,5 @@
 import PrismSectionHeading,{SectionSubtitle} from './components/SectionHeading';
-import {apiUrl} from './lib/api.js';
+import {apiUrl,followWhatsAppRedirect} from './lib/api.js';
 import {digitsOnly,isTenDigitPhone,isValidEmail} from './lib/enquiry-validation.js';
 import IndustryAssociates from './components/IndustryAssociates';
 import {MaterialShop,MaterialDetails,MaterialCart} from './components/SchoolMaterialSystem';
@@ -67,6 +67,7 @@ async function sendEnquiry(form,topic){
   const result=await response.json().catch(()=>({}));
   if(!response.ok){const message=result.error||'Unable to send your enquiry. Please try again.';toast.error(message);throw Error(message);}
   toast.success(result.message||'Your enquiry has been received.');
+  followWhatsAppRedirect(result);
   return result;
 }
 function Form({title='Tell us about your requirement',fields=[]}){const[status,setStatus]=useState('idle');const submit=async e=>{e.preventDefault();if(status==='submitting')return;setStatus('submitting');try{await sendEnquiry(e.currentTarget,title);setStatus('success')}catch{setStatus('idle')}};if(status==='success')return <div className="card text-center"><CheckCircle2 className="mx-auto mb-3 text-green-600" size={42}/><h3>Thank you for your enquiry</h3><p className="mt-2 text-sm">Your request has been securely received by Prism Edu.</p></div>;return <form noValidate className="card" onSubmit={submit}><h3 className="mb-6 text-xl">{title}</h3><div className="grid gap-4 md:grid-cols-2">{['Name','Phone number','Email address','City / Location',...fields].map((x,i)=>x.includes('Message')||x.includes('Challenges')?<textarea key={x} name={x} required className="field md:col-span-2" rows="4" placeholder={x}/>:<input key={x} name={x} required className="field" {...(i===1?phoneInputProps:{type:i===2?'email':'text'})} placeholder={x}/>)}</div><label className="mt-4 flex gap-2 text-xs"><input type="checkbox" required/>I agree to be contacted about this enquiry.</label><button disabled={status==='submitting'} className="btn mt-5 w-full">{status==='submitting'?'Submitting…':'Submit enquiry'}</button></form>}
