@@ -24,8 +24,6 @@ const socialLinks=[
 
 const quickLinks=[['Home','/'],['About Us','/about'],['School Properties','/school-properties'],['Our Services','/services'],['Shop School Material','/school-materials'],['Resources','/resources'],['Contact Us','/contact'],['Request Consultation','/contact#contact-form']];
 const serviceLinks=[['School Services','/services#school-services'],['School Properties & Support Services','/services#school-properties-support'],['Industry Associates','/services#industry-associates-services'],['Licensing & Legal Support Services','/services#licensing-legal'],['Web & Digital Solutions Services','/services#digital-services']];
-const policyLinks=[['Sitemap','/sitemap.xml']];
-
 function FooterLink({to,children}){return to.endsWith('.xml')?<a className="footer-link" href={to}>{children}<ArrowRight size={13} aria-hidden="true"/></a>:<Link className="footer-link" to={to}>{children}<ArrowRight size={13} aria-hidden="true"/></Link>}
 
 export default function GlobalFooter(){return <footer className="global-footer">
@@ -42,7 +40,6 @@ export default function GlobalFooter(){return <footer className="global-footer">
     <section className="footer-brand" aria-labelledby="footer-brand-title"><img src="/images/prism-official/prism-logo.jpg" alt="Prism Edu Consultancy" width="190" height="150" loading="lazy"/><h2 id="footer-brand-title" className="sr-only">Prism Edu Consultancy</h2><p>Prism Edu Consultancy supports school founders, management teams, educators, and education entrepreneurs through practical guidance, professional services, and sustainable institutional-development solutions.</p><strong>Supporting Educational Institutions from Vision to Growth.</strong><div className="footer-socials">{socialLinks.map(({label,url})=><a key={label} href={url} target="_blank" rel="noopener noreferrer" aria-label={label} title={label}><SocialIcon name={label}/></a>)}</div></section>
     <nav aria-labelledby="footer-quick-title"><h2 id="footer-quick-title">Quick Links</h2>{quickLinks.map(([label,to])=><FooterLink key={label} to={to}>{label}</FooterLink>)}</nav>
     <nav aria-labelledby="footer-services-title"><h2 id="footer-services-title">Our Core Services</h2>{serviceLinks.map(([label,to])=><FooterLink key={label} to={to}>{label}</FooterLink>)}</nav>
-    <nav aria-labelledby="footer-info-title"><h2 id="footer-info-title">Professional Information</h2>{policyLinks.map(([label,to])=><FooterLink key={label} to={to}>{label}</FooterLink>)}</nav>
     <section aria-labelledby="footer-contact-title"><h2 id="footer-contact-title">Contact Us</h2><address className="footer-contact"><div><MapPin size={18}/><p>{contact.address.map(line=><span key={line}>{line}</span>)}</p></div>{contact.phones.map(number=><a key={number} href={'tel:+91'+number}><Phone size={17}/>{number}</a>)}<a href={'mailto:'+contact.email}><Mail size={17}/>{contact.email}</a></address></section>
   </div>
   <div className="footer-bottom"><div className="wrap"><p>© 2026 Prism Edu Consultancy. All rights reserved.</p><nav aria-label="Footer links"><a href="/sitemap.xml">Sitemap</a></nav></div></div>
