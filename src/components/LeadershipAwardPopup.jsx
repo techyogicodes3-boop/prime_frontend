@@ -1,28 +1,28 @@
 import {useEffect,useRef,useState} from 'react';
-import {Link,useLocation} from 'react-router-dom';
+import {useLocation} from 'react-router-dom';
 import {X} from 'lucide-react';
+import {apiUrl} from '../lib/api.js';
 
 const STORAGE_KEY='prism-principals-school-leadership-award-seen';
-const POSTER='/images/events-awards/principals-education-leaders-invitation.jpeg';
-const REGISTRATION_DESTINATION='/contact?enquiry=events-awards';
 
-let shownThisSession=false;
 export default function LeadershipAwardPopup(){
   const {pathname}=useLocation();
-  const[open,setOpen]=useState(false);
+  const[open,setOpen]=useState(false),[event,setEvent]=useState(null);
   const closeButtonRef=useRef(null),dialogRef=useRef(null),previousFocusRef=useRef(null);
   useEffect(()=>{
     if(pathname!=='/'){setOpen(false);return}
-    try{if(sessionStorage.getItem(STORAGE_KEY))return}catch{}
-    if(shownThisSession)return;
-    let timer;
-    const check=()=>{
+    const controller=new AbortController();let timer,poll;
+    const show=item=>{
+      try{if(sessionStorage.getItem(STORAGE_KEY)===String(item.id))return}catch{}
+      const check=()=>{
       if(document.querySelector('.site-loader'))return;
       window.clearInterval(poll);
-      timer=window.setTimeout(()=>{shownThisSession=true;try{sessionStorage.setItem(STORAGE_KEY,'true')}catch{}previousFocusRef.current=document.activeElement;setOpen(true)},200);
+      timer=window.setTimeout(()=>{try{sessionStorage.setItem(STORAGE_KEY,String(item.id))}catch{}previousFocusRef.current=document.activeElement;setEvent(item);setOpen(true)},200);
+      };
+      poll=window.setInterval(check,100);check();
     };
-    const poll=window.setInterval(check,100);check();
-    return()=>{window.clearInterval(poll);window.clearTimeout(timer)};
+    fetch(apiUrl('/api/upcoming-events?limit=1'),{signal:controller.signal}).then(async response=>{if(!response.ok)throw Error();const item=(await response.json()).items?.[0];if(item?.imageId)show(item)}).catch(()=>{});
+    return()=>{controller.abort();window.clearInterval(poll);window.clearTimeout(timer)};
   },[pathname]);
   useEffect(()=>{
     if(!open)return;
@@ -41,14 +41,14 @@ export default function LeadershipAwardPopup(){
     document.addEventListener('keydown',handleKeyDown);
     return()=>{document.removeEventListener('keydown',handleKeyDown);document.body.style.overflow=previousOverflow;previousFocusRef.current?.focus?.()};
   },[open]);
-  if(!open)return null;
+  if(!open||!event)return null;
   return <div className="leadership-award-backdrop" role="presentation" onMouseDown={event=>{if(event.target===event.currentTarget)setOpen(false)}}>
     <div ref={dialogRef} className="leadership-award-dialog" role="dialog" aria-modal="true" aria-labelledby="leadership-award-popup-title">
-      <h2 id="leadership-award-popup-title" className="sr-only">Principals and School Leadership Award announcement</h2>
-      <button ref={closeButtonRef} type="button" className="leadership-award-close" onClick={()=>setOpen(false)} aria-label="Close Principals and School Leadership Award announcement"><X aria-hidden="true"/></button>
-      <Link className="leadership-award-poster-link" to={REGISTRATION_DESTINATION} onClick={()=>setOpen(false)} aria-label="Register your interest for the Principals and School Leadership Award">
-        <img src={POSTER} alt="Prism Edu Consultancy Principals and School Leadership Award event" width="1024" height="1536" fetchPriority="high"/>
-      </Link>
+      <h2 id="leadership-award-popup-title" className="sr-only">{event.title}</h2>
+      <button ref={closeButtonRef} type="button" className="leadership-award-close" onClick={()=>setOpen(false)} aria-label="Close upcoming event"><X aria-hidden="true"/></button>
+      <a className="leadership-award-poster-link" href={event.googleFormLink} target="_blank" rel="noopener noreferrer" onClick={()=>setOpen(false)} aria-label={'Open registration for '+event.title}>
+        <img src={apiUrl('/api/upcoming-event-media/'+event.imageId)} alt={event.title} fetchPriority="high"/>
+      </a>
     </div>
   </div>;
 }

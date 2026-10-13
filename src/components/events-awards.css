@@ -45,7 +45,9 @@
 .upcoming-events-error { border-color:#e2a8ad; background:#fff4f4; color:#8b2630; }
 .events-awards-page .events-webinars { background:linear-gradient(135deg,#eef6fa,#fff9eb 58%,#f2edf9); }
 .events-awards-page .webinar-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:1.25rem; margin-top:2rem; }
-.events-awards-page .webinar-card { display:flex; min-height:280px; flex-direction:column; align-items:flex-start; border:1px solid #d7e2e8; border-radius:1.25rem; background:#fff; padding:1.5rem; box-shadow:0 14px 38px #10263f12; }
+.events-awards-page .webinar-card { display:flex; width:100%; min-height:280px; cursor:pointer; flex-direction:column; align-items:flex-start; border:1px solid #d7e2e8; border-radius:1.25rem; background:#fff; padding:1.5rem; text-align:left; box-shadow:0 14px 38px #10263f12; transition:transform .2s,box-shadow .2s; }
+.events-awards-page .webinar-card:hover { transform:translateY(-3px); box-shadow:0 18px 42px #10263f20; }
+.events-awards-page .webinar-card:disabled { cursor:default; opacity:.65; }
 .events-awards-page .webinar-card>span { border-radius:999px; background:#10263f; padding:.4rem .7rem; color:#fff; font-size:.62rem; font-weight:800; letter-spacing:.1em; }
 .events-awards-page .webinar-date { display:flex; align-items:center; gap:.5rem; margin-top:1.25rem; color:#956215; font-size:.78rem; font-weight:750; }
 .events-awards-page .webinar-card h3 { margin-top:.8rem; font-size:1.25rem; font-weight:800; line-height:1.35; }
@@ -53,6 +55,10 @@
 .events-awards-page .webinar-card .btn { margin-top:auto; padding-top:.7rem; padding-bottom:.7rem; }
 .events-awards-page .webinar-status { margin:2rem auto 0; max-width:760px; border:1px dashed #9db1bd; border-radius:1rem; background:#ffffffc9; padding:1.25rem; text-align:center; color:#415567; }
 .events-awards-page .webinar-error { border-color:#e2a8ad; background:#fff4f4; color:#8b2630; }
+.webinar-image-backdrop { position:fixed; inset:0; z-index:10000; display:grid; place-items:center; overflow:auto; padding:1rem; background:rgba(3,14,29,.86); backdrop-filter:blur(5px); }
+.webinar-image-dialog { position:relative; display:grid; max-width:min(900px,calc(100vw - 2rem)); max-height:92vh; place-items:center; }
+.webinar-image-dialog img { display:block; max-width:100%; max-height:92vh; border-radius:1rem; object-fit:contain; box-shadow:0 28px 90px rgba(0,0,0,.5); }
+.webinar-image-dialog button { position:absolute; right:-14px; top:-14px; z-index:1; display:grid; width:44px; height:44px; place-items:center; border:2px solid #fff; border-radius:999px; background:#10263f; color:#fff; box-shadow:0 8px 24px rgba(0,0,0,.35); }
 .events-awards-page .recognition-video { background-image:linear-gradient(100deg,#edf5faeb,#f7fafbc9),url('/images/prism-official/school-workshop.jpg'); }
 .events-awards-page .video-placeholder { display:grid; place-items:center; gap:.65rem; max-width:750px; margin:1.5rem auto 0; padding:1.5rem; border:1px dashed #8fa8ba; border-radius:1.15rem; background:#ffffffe6; text-align:center; }
 .events-awards-page .video-placeholder svg { color:#956215; }
