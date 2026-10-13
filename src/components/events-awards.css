@@ -30,7 +30,6 @@
 .upcoming-events-section { position:relative; padding-block:clamp(3rem,5vw,5rem); background:linear-gradient(120deg,#f7f4e9,#fffdf7 55%,#edf6f8); color:#10263f; }
 .upcoming-events-heading { display:flex; align-items:end; justify-content:space-between; gap:1.5rem; }
 .upcoming-events-heading .section-heading { color:#10263f; font-size:clamp(1.8rem,3.2vw,3rem); line-height:1.15; }
-.upcoming-events-all { display:inline-flex; flex:none; align-items:center; gap:.4rem; color:#79500f; font-size:.85rem; font-weight:800; }
 .upcoming-events-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:1.35rem; margin-top:2rem; }
 .upcoming-event-card { overflow:hidden; border:1px solid #d7e1e6; border-radius:1.3rem; background:#fff; box-shadow:0 14px 36px rgba(16,38,63,.1); }
 .upcoming-event-card>img { display:block; width:100%; aspect-ratio:4/3; background:#f2f5f7; object-fit:contain; }
@@ -38,9 +37,6 @@
 .upcoming-event-card span { display:flex; align-items:center; gap:.4rem; color:#956215; font-size:.7rem; font-weight:850; letter-spacing:.08em; text-transform:uppercase; }
 .upcoming-event-card h3 { margin:.75rem 0 1.15rem; color:#10263f; font-size:1.2rem; font-weight:800; line-height:1.35; }
 .upcoming-event-card .btn { margin-top:auto; }
-.upcoming-events-grid.is-home { grid-template-columns:minmax(0,760px); }
-.upcoming-events-grid.is-home .upcoming-event-card { display:grid; grid-template-columns:minmax(0,1.15fr) minmax(260px,.85fr); }
-.upcoming-events-grid.is-home .upcoming-event-card>img { height:100%; min-height:300px; aspect-ratio:auto; }
 .upcoming-events-status { margin-top:2rem; border:1px dashed #9db1bd; border-radius:1rem; background:#ffffffc9; padding:1.25rem; text-align:center; color:#415567; }
 .upcoming-events-error { border-color:#e2a8ad; background:#fff4f4; color:#8b2630; }
 .events-awards-page .events-webinars { background:linear-gradient(135deg,#eef6fa,#fff9eb 58%,#f2edf9); }
@@ -89,8 +85,6 @@
  .events-awards-page .webinar-grid { grid-template-columns:1fr; }
  .upcoming-events-heading { align-items:flex-start; flex-direction:column; }
  .upcoming-events-grid { grid-template-columns:1fr; }
- .upcoming-events-grid.is-home .upcoming-event-card { display:block; }
- .upcoming-events-grid.is-home .upcoming-event-card>img { min-height:0; aspect-ratio:4/3; }
 }
 @media(prefers-reduced-motion:reduce) {
  .events-awards-page *, .events-awards-page *::before, .events-awards-page *::after { animation:none!important; transition:none!important; scroll-behavior:auto!important; }

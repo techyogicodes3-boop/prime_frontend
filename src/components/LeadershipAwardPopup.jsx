@@ -1,9 +1,8 @@
 import {useEffect,useRef,useState} from 'react';
 import {useLocation} from 'react-router-dom';
+import {createPortal} from 'react-dom';
 import {X} from 'lucide-react';
 import {apiUrl} from '../lib/api.js';
-
-const STORAGE_KEY='prism-principals-school-leadership-award-seen';
 
 export default function LeadershipAwardPopup(){
   const {pathname}=useLocation();
@@ -13,15 +12,14 @@ export default function LeadershipAwardPopup(){
     if(pathname!=='/'){setOpen(false);return}
     const controller=new AbortController();let timer,poll;
     const show=item=>{
-      try{if(sessionStorage.getItem(STORAGE_KEY)===String(item.id))return}catch{}
       const check=()=>{
       if(document.querySelector('.site-loader'))return;
       window.clearInterval(poll);
-      timer=window.setTimeout(()=>{try{sessionStorage.setItem(STORAGE_KEY,String(item.id))}catch{}previousFocusRef.current=document.activeElement;setEvent(item);setOpen(true)},200);
+      timer=window.setTimeout(()=>{previousFocusRef.current=document.activeElement;setEvent(item);setOpen(true)},200);
       };
       poll=window.setInterval(check,100);check();
     };
-    fetch(apiUrl('/api/upcoming-events?limit=1'),{signal:controller.signal}).then(async response=>{if(!response.ok)throw Error();const item=(await response.json()).items?.[0];if(item?.imageId)show(item)}).catch(()=>{});
+    fetch(apiUrl('/api/upcoming-events?limit=1'),{signal:controller.signal,cache:'no-store'}).then(async response=>{if(!response.ok)throw Error();const item=(await response.json()).items?.[0];if(item?.imageId)show(item)}).catch(()=>{});
     return()=>{controller.abort();window.clearInterval(poll);window.clearTimeout(timer)};
   },[pathname]);
   useEffect(()=>{
@@ -42,7 +40,7 @@ export default function LeadershipAwardPopup(){
     return()=>{document.removeEventListener('keydown',handleKeyDown);document.body.style.overflow=previousOverflow;previousFocusRef.current?.focus?.()};
   },[open]);
   if(!open||!event)return null;
-  return <div className="leadership-award-backdrop" role="presentation" onMouseDown={event=>{if(event.target===event.currentTarget)setOpen(false)}}>
+  return createPortal(<div className="leadership-award-backdrop" role="presentation" onMouseDown={event=>{if(event.target===event.currentTarget)setOpen(false)}}>
     <div ref={dialogRef} className="leadership-award-dialog" role="dialog" aria-modal="true" aria-labelledby="leadership-award-popup-title">
       <h2 id="leadership-award-popup-title" className="sr-only">{event.title}</h2>
       <button ref={closeButtonRef} type="button" className="leadership-award-close" onClick={()=>setOpen(false)} aria-label="Close upcoming event"><X aria-hidden="true"/></button>
@@ -50,5 +48,5 @@ export default function LeadershipAwardPopup(){
         <img src={apiUrl('/api/upcoming-event-media/'+event.imageId)} alt={event.title} fetchPriority="high"/>
       </a>
     </div>
-  </div>;
+  </div>,document.body);
 }
