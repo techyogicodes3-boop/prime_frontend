@@ -15,6 +15,7 @@ import LeadershipAwardPopup from'./components/LeadershipAwardPopup';
 import GlobalFooter from'./components/GlobalFooter';
 import AccountPage from'./components/AccountPage';
 import MotionController from'./components/MotionController';
+import UpcomingEvents from'./components/UpcomingEvents';
 import toast from'react-hot-toast';
 const nav=[['Home','/'],['About Us','/about'],['Our Services','/services'],['School Properties','/school-properties'],['Industry Associates','/school-materials'],['Our Clients','/our-clients'],['Upcoming Events','/events-awards'],['Helpline','/resources'],['Contact','/contact']];
 const PRISM_LOGO_URL='/images/prism-official/prism-logo.jpg';
@@ -193,6 +194,7 @@ function App() {
               <PracticalStart />
               <ServicesShowcase />
               <TrainingWorkshops />
+              <UpcomingEvents home />
               <HomeProperties />
               <MaterialShop home onAdd={addToCart} cartCount={cartCount} />
               <EduHelpline />

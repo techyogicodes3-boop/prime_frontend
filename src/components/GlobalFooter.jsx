@@ -18,7 +18,7 @@ function SocialIcon({name}){const paths={
 const socialLinks=[
   {label:'WhatsApp',url:contact.whatsapp},
   {label:'LinkedIn',url:'https://www.linkedin.com/in/prajkta-shinde-3a1690143?utm_source=share_via&utm_content=profile&utm_medium=member_ios'},
-  {label:'Facebook',url:'https://www.facebook.com/p/Prism-Edu-Consultancy-61594655243393/'},
+  {label:'Facebook',url:'https://www.facebook.com/people/Prism-Edu-Consultancy/61594440992574/'},
   {label:'Instagram',url:'https://www.instagram.com/prismedu2026/'},
 ];
 
